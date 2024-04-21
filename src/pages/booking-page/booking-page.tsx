@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 
 function BookingPage(): JSX.Element {
   return (
@@ -7,41 +8,7 @@ function BookingPage(): JSX.Element {
       <Helmet>
         <title>Escape Room. Booking.</title>
       </Helmet>
-      <header className="header">
-        <div className="container container--size-l">
-          <Logo />
-          <nav className="main-nav header__main-nav">
-            <ul className="main-nav__list">
-              <li className="main-nav__item">
-                <a className="link not-disabled active" href="index.html">
-                                        Квесты
-                </a>
-              </li>
-              <li className="main-nav__item">
-                <a className="link" href="contacts.html">
-                                        Контакты
-                </a>
-              </li>
-              <li className="main-nav__item">
-                <a className="link" href="my-quests.html">
-                                        Мои бронирования
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div className="header__side-nav">
-            <a className="btn btn--accent header__side-item" href="#">
-                                Выйти
-            </a>
-            <a
-              className="link header__side-item header__phone-link"
-              href="tel:88003335599"
-            >
-                                8 (000) 111-11-11
-            </a>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page-content decorated-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
@@ -61,10 +28,10 @@ function BookingPage(): JSX.Element {
         <div className="container container--size-s">
           <div className="page-content__title-wrapper">
             <h1 className="subtitle subtitle--size-l page-content__subtitle">
-                                Бронирование квеста
+              Бронирование квеста
             </h1>
             <p className="title title--size-m title--uppercase page-content__title">
-                                Маньяк
+              Маньяк
             </p>
           </div>
           <div className="page-content__item">
@@ -73,8 +40,8 @@ function BookingPage(): JSX.Element {
                 <div className="map__container" />
               </div>
               <p className="booking-map__address">
-                                    Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м.
-                                    Петроградская
+                Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м.
+                Петроградская
               </p>
             </div>
           </div>
@@ -204,7 +171,7 @@ function BookingPage(): JSX.Element {
               <legend className="visually-hidden">Контактная информация</legend>
               <div className="custom-input booking-form__input">
                 <label className="custom-input__label" htmlFor="name">
-                                        Ваше имя
+                  Ваше имя
                 </label>
                 <input
                   type="text"
@@ -217,7 +184,7 @@ function BookingPage(): JSX.Element {
               </div>
               <div className="custom-input booking-form__input">
                 <label className="custom-input__label" htmlFor="tel">
-                                        Контактный телефон
+                  Контактный телефон
                 </label>
                 <input
                   type="tel"
@@ -230,7 +197,7 @@ function BookingPage(): JSX.Element {
               </div>
               <div className="custom-input booking-form__input">
                 <label className="custom-input__label" htmlFor="person">
-                                        Количество участников
+                  Количество участников
                 </label>
                 <input
                   type="number"
@@ -253,7 +220,7 @@ function BookingPage(): JSX.Element {
                   </svg>
                 </span>
                 <span className="custom-checkbox__label">
-                                        Со&nbsp;мной будут дети
+                  Со&nbsp;мной будут дети
                 </span>
               </label>
             </fieldset>
@@ -261,7 +228,7 @@ function BookingPage(): JSX.Element {
               className="btn btn--accent btn--cta booking-form__submit"
               type="submit"
             >
-                                Забронировать
+              Забронировать
             </button>
             <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
               <input
@@ -276,76 +243,17 @@ function BookingPage(): JSX.Element {
                 </svg>
               </span>
               <span className="custom-checkbox__label">
-                                    Я&nbsp;согласен с
+                Я&nbsp;согласен с
                 <a className="link link--active-silver link--underlined" href="#">
-                                        правилами обработки персональных данных
+                  правилами обработки персональных данных
                 </a>
-                                    &nbsp;и пользовательским соглашением
+                &nbsp;и пользовательским соглашением
               </span>
             </label>
           </form>
         </div>
       </main>
-      <footer className="footer">
-        <div className="container container--size-l">
-          <div className="socials">
-            <ul className="socials__list">
-              <li className="socials__item">
-                <a
-                  className="socials__link"
-                  href="#"
-                  aria-label="Skype"
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                >
-                  <svg
-                    className="socials__icon socials__icon--default"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-skype-default" />
-                  </svg>
-                  <svg
-                    className="socials__icon socials__icon--interactive"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-skype-interactive" />
-                  </svg>
-                </a>
-              </li>
-              <li className="socials__item">
-                <a
-                  className="socials__link"
-                  href="#"
-                  aria-label="ВКонтакте"
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                >
-                  <svg
-                    className="socials__icon socials__icon--default"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-vk-default" />
-                  </svg>
-                  <svg
-                    className="socials__icon socials__icon--interactive"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-vk-interactive" />
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
