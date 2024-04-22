@@ -22,7 +22,7 @@ function App({quests}: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage quests={quests}/>}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Booking}

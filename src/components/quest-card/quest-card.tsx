@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Quest } from '../../types/quest-info';
+import { QuestInfo } from '../../types/quest-info';
 
 type QuestCardProps = {
-    questCard: Quest;
+    questCard: QuestInfo;
 }
 
 function QuestCard({ questCard }: QuestCardProps): JSX.Element {

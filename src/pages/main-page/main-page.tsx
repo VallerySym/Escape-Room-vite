@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async';
+import {useAppSelector} from '../../hooks/index';
 import QuestCardList from '../../components/quest-card-list/quest-card-list';
-import { QuestsInfo } from '../../types/quest-info';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
-type MainPageProps = {
-  quests: QuestsInfo;
-}
+function MainPage(): JSX.Element {
 
-function MainPage({quests}: MainPageProps): JSX.Element {
+  const gerneActive = useAppSelector((state) => state.gerneActive);
+  const questsActive = useAppSelector((state) => state.quests);
+
   return (
     <div className="wrapper">
       <Helmet>
@@ -41,7 +41,7 @@ function MainPage({quests}: MainPageProps): JSX.Element {
                       >
                         <use xlinkHref="#icon-all-quests" />
                       </svg>
-                      <span className="filter__label-text">Все квесты</span>
+                      <span className="filter__label-text">{gerneActive}</span>
                     </label>
                   </li>
                   <li className="filter__item">
@@ -148,7 +148,7 @@ function MainPage({quests}: MainPageProps): JSX.Element {
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <QuestCardList questList={quests}/>
+          <QuestCardList questList={questsActive}/>
         </div>
       </main>
       <Footer />

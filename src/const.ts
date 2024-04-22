@@ -16,7 +16,7 @@ export enum AuthorizationStatus {
 }
 
 export const GERNE_LIST: GerneList = {
-    All: 'Все квесты',
+    AllQuests: 'Все квесты',
     Adventures: 'Приключения',
     Horror: 'Ужасы',
     Mystic: 'Мистика',
@@ -24,5 +24,14 @@ export const GERNE_LIST: GerneList = {
     SciFi: 'Sci-fi',
   } as const;
 
-  export const DEFAULT_GERNE = GERNE_LIST.All;
+  export const DEFAULT_GERNE = GERNE_LIST.AllQuests;
+  
+  export const gernesList = [
+    GERNE_LIST.AllQuests,
+    GERNE_LIST.Adventures,
+    GERNE_LIST.Horror,
+    GERNE_LIST.Mystic,
+    GERNE_LIST.Detective,
+    GERNE_LIST.SciFi
+  ];
   
