@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import QuestCardList from '../../components/quest-card-list/quest-card-list';
-import { Quests } from '../../types/quests';
+import { QuestsInfo } from '../../types/quest-info';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 type MainPageProps = {
-  quests: Quests;
+  quests: QuestsInfo;
 }
 
 function MainPage({quests}: MainPageProps): JSX.Element {

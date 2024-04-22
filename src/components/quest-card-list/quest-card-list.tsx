@@ -1,4 +1,4 @@
-import { Quests } from '../../types/quests';
+import { Quests } from '../../types/quest-info';
 import QuestCard from '../quest-card/quest-card';
 
 type QuestCardListProps = {
