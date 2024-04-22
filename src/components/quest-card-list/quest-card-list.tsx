@@ -1,8 +1,8 @@
-import { Quests } from '../../types/quests';
+import { QuestsInfo } from '../../types/quest-info';
 import QuestCard from '../quest-card/quest-card';
 
 type QuestCardListProps = {
-    questList: Quests;
+    questList: QuestsInfo;
 }
 
 function QuestCardList({questList}: QuestCardListProps): JSX.Element {

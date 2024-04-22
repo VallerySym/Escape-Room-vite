@@ -9,10 +9,10 @@ import LoginPage from '../../pages/login-page/login-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import QuestPage from '../../pages/quest-page/quest-page';
-import { Quests } from '../../types/quests';
+import { QuestsInfo } from '../../types/quest-info';
 
 type AppProps = {
- quests: Quests;
+ quests: QuestsInfo;
 }
 
 function App({quests}: AppProps): JSX.Element {
@@ -22,7 +22,7 @@ function App({quests}: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage quests={quests}/>}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Booking}

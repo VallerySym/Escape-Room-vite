@@ -1,18 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { Quests } from '../../types/quests';
+import { Link } from 'react-router-dom';
+import { QuestsInfo } from '../../types/quest-info';
+import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 type QuestPageProps = {
-  quests: Quests;
+  quests: QuestsInfo;
 }
 
 function QuestPage({ quests }: QuestPageProps): JSX.Element {
   const params = useParams();
   const cardId = params.id;
   const selectedCard = quests.filter((quest) => quest.id === cardId)[0];
-  const { title, peopleMinMax, level, type, description, previewImg, previewImgWebp } = selectedCard;
+  const { title, peopleMinMax, level, type, quest} = selectedCard;
+  const { description, coverImg, coverImgWebp } = quest;
 
   return (
     <div className="wrapper">
@@ -23,17 +26,8 @@ function QuestPage({ quests }: QuestPageProps): JSX.Element {
       <main className="decorated-page quest-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
-            <source
-              type="image/webp"
-              srcSet={previewImgWebp}
-            />
-            <img
-              src={previewImg}
-              srcSet={previewImg}
-              width={1366}
-              height={768}
-              alt=""
-            />
+            <source type="image/webp" srcSet={coverImgWebp} />
+            <img src={coverImg} srcSet={coverImg} width={1366} height={768} alt="" />
           </picture>
         </div>
         <div className="container container--size-l">
@@ -61,12 +55,7 @@ function QuestPage({ quests }: QuestPageProps): JSX.Element {
             <p className="quest-page__description">
               {description}
             </p>
-            <a
-              className="btn btn--accent btn--cta quest-page__btn"
-              href="booking.html"
-            >
-              Забронировать
-            </a>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Booking}`}>Забронировать</Link>
           </div>
         </div>
       </main>
