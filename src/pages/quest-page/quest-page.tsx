@@ -26,8 +26,8 @@ function QuestPage({ quests }: QuestPageProps): JSX.Element {
       <main className="decorated-page quest-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
-          <source type="image/webp" srcSet={coverImgWebp} />
-          <img src={coverImg} srcSet={coverImg} width={1366} height={768} alt="" />
+            <source type="image/webp" srcSet={coverImgWebp} />
+            <img src={coverImg} srcSet={coverImg} width={1366} height={768} alt="" />
           </picture>
         </div>
         <div className="container container--size-l">

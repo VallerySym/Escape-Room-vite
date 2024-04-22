@@ -1,4 +1,4 @@
-import { GerneList } from "./types/gerne-list";
+import { GerneList } from './types/gerne-list';
 
 export enum AppRoute {
     Main = '/',
@@ -16,22 +16,21 @@ export enum AuthorizationStatus {
 }
 
 export const GERNE_LIST: GerneList = {
-    AllQuests: 'Все квесты',
-    Adventures: 'Приключения',
-    Horror: 'Ужасы',
-    Mystic: 'Мистика',
-    Detective: 'Детектив',
-    SciFi: 'Sci-fi',
-  } as const;
+  AllQuests: 'Все квесты',
+  Adventures: 'Приключения',
+  Horror: 'Ужасы',
+  Mystic: 'Мистика',
+  Detective: 'Детектив',
+  SciFi: 'Sci-fi',
+} as const;
 
-  export const DEFAULT_GERNE = GERNE_LIST.AllQuests;
-  
-  export const gernesList = [
-    GERNE_LIST.AllQuests,
-    GERNE_LIST.Adventures,
-    GERNE_LIST.Horror,
-    GERNE_LIST.Mystic,
-    GERNE_LIST.Detective,
-    GERNE_LIST.SciFi
-  ];
-  
+export const DEFAULT_GERNE = GERNE_LIST.AllQuests;
+
+export const gernesList = [
+  GERNE_LIST.AllQuests,
+  GERNE_LIST.Adventures,
+  GERNE_LIST.Horror,
+  GERNE_LIST.Mystic,
+  GERNE_LIST.Detective,
+  GERNE_LIST.SciFi
+];
