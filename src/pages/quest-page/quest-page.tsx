@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { QuestsInfo } from '../../types/quest-info';
+import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
@@ -53,12 +55,7 @@ function QuestPage({ quests }: QuestPageProps): JSX.Element {
             <p className="quest-page__description">
               {description}
             </p>
-            <a
-              className="btn btn--accent btn--cta quest-page__btn"
-              href="booking.html"
-            >
-              Забронировать
-            </a>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Booking}`}>Забронировать</Link>
           </div>
         </div>
       </main>
