@@ -1,27 +1,11 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { setActiveGenre, getQuests } from './action';
-import { quests } from '../mocks/quests';
-import { DEFAULT_GERNE } from '../const';
+import { combineReducers } from 'redux';
+import { questsReducer } from './quests-process/quests-process.slice';
+import { filtersReducer } from './filter-process/filter-process.slice';
+import { NameSpace } from '../const';
 
-
-const initialState = {
-  gerneActive: DEFAULT_GERNE,
-  quests: quests.filter(
-    (item) => item?.title === DEFAULT_GERNE
-  ),
-};
-
-const reducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(setActiveGenre, (state, action) => {
-      state.gerneActive = action.payload;
-    })
-
-    .addCase(getQuests, (state) => {
-      state.quests = quests.filter(
-        (item) => item?.title === state.gerneActive
-      );
-    });
+const rootReducer = combineReducers({
+  [NameSpace.Quests]: questsReducer,
+  [NameSpace.Filters]: filtersReducer,
 });
 
-export { reducer };
+export default rootReducer;
