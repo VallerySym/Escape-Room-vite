@@ -1,13 +1,30 @@
 import { Helmet } from 'react-helmet-async';
-import {useAppSelector} from '../../hooks/index';
-import QuestCardList from '../../components/quest-card-list/quest-card-list';
+import { useAppSelector } from '../../hooks/index';
+import QuestCard from '../../components/quest-card/quest-card';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import FilterSection from '../../components/filter-section/filter-section';
+import { QuestThemeFilters, QuestDifficultyFilters } from '../../const';
 
 function MainPage(): JSX.Element {
+  const quests = useAppSelector((state) => state.QUESTS.questsData);
+  const currentTheme = useAppSelector((state) => state.FILTERS.currentTheme);
+  const currentDifficulty = useAppSelector((state) => state.FILTERS.currentDifficulty);
+  const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
 
-  const gerneActive = useAppSelector((state) => state.gerneActive);
-  const questsActive = useAppSelector((state) => state.quests);
+  const isNotAllOrAny = (value: string) => value !== 'all' && value !== 'any';
+
+  const filteredQuests = quests.filter((quest) => {
+
+    const themeFilter = currentTheme === 'all' || currentTheme === quest.type || !isNotAllOrAny(currentTheme);
+    const difficultyFilter = currentDifficulty === 'any' || currentDifficulty === quest.level || !isNotAllOrAny(currentDifficulty);
+
+    return themeFilter && difficultyFilter;
+  });
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="wrapper">
@@ -27,128 +44,15 @@ function MainPage(): JSX.Element {
           </div>
           <div className="page-content__item">
             <form className="filter" action="#" method="get">
-              <fieldset className="filter__section">
-                <legend className="visually-hidden">Тематика</legend>
-                <ul className="filter__list">
-                  <li className="filter__item">
-                    <input type="radio" name="type" id="all" defaultChecked />
-                    <label className="filter__label" htmlFor="all">
-                      <svg
-                        className="filter__icon"
-                        width={26}
-                        height={30}
-                        aria-hidden="true"
-                      >
-                        <use xlinkHref="#icon-all-quests" />
-                      </svg>
-                      <span className="filter__label-text">{gerneActive}</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="type" id="adventure" />
-                    <label className="filter__label" htmlFor="adventure">
-                      <svg
-                        className="filter__icon"
-                        width={36}
-                        height={30}
-                        aria-hidden="true"
-                      >
-                        <use xlinkHref="#icon-adventure" />
-                      </svg>
-                      <span className="filter__label-text">Приключения</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="type" id="horror" />
-                    <label className="filter__label" htmlFor="horror">
-                      <svg
-                        className="filter__icon"
-                        width={30}
-                        height={30}
-                        aria-hidden="true"
-                      >
-                        <use xlinkHref="#icon-horror" />
-                      </svg>
-                      <span className="filter__label-text">Ужасы</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="type" id="mystic" />
-                    <label className="filter__label" htmlFor="mystic">
-                      <svg
-                        className="filter__icon"
-                        width={30}
-                        height={30}
-                        aria-hidden="true"
-                      >
-                        <use xlinkHref="#icon-mystic" />
-                      </svg>
-                      <span className="filter__label-text">Мистика</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="type" id="detective" />
-                    <label className="filter__label" htmlFor="detective">
-                      <svg
-                        className="filter__icon"
-                        width={40}
-                        height={30}
-                        aria-hidden="true"
-                      >
-                        <use xlinkHref="#icon-detective" />
-                      </svg>
-                      <span className="filter__label-text">Детектив</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="type" id="sciFi" />
-                    <label className="filter__label" htmlFor="sciFi">
-                      <svg
-                        className="filter__icon"
-                        width={28}
-                        height={30}
-                        aria-hidden="true"
-                      >
-                        <use xlinkHref="#icon-sci-fi" />
-                      </svg>
-                      <span className="filter__label-text">Sci-fi</span>
-                    </label>
-                  </li>
-                </ul>
-              </fieldset>
-              <fieldset className="filter__section">
-                <legend className="visually-hidden">Сложность</legend>
-                <ul className="filter__list">
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="any" defaultChecked />
-                    <label className="filter__label" htmlFor="any">
-                      <span className="filter__label-text">Любой</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="easy" />
-                    <label className="filter__label" htmlFor="easy">
-                      <span className="filter__label-text">Лёгкий</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="middle" />
-                    <label className="filter__label" htmlFor="middle">
-                      <span className="filter__label-text">Средний</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="hard" />
-                    <label className="filter__label" htmlFor="hard">
-                      <span className="filter__label-text">Сложный</span>
-                    </label>
-                  </li>
-                </ul>
-              </fieldset>
+            <FilterSection filterTheme='Тематика' filters={QuestThemeFilters} />
+            <FilterSection filterTheme='Сложность' filters={QuestDifficultyFilters} />
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <QuestCardList questList={questsActive}/>
+          <div className="cards-grid">
+            {filteredQuests.length === 0}
+            {filteredQuests.length !== 0 && filteredQuests.map((quest) => <QuestCard key={quest.id} questCard={quest} />)}
+          </div>
         </div>
       </main>
       <Footer />
