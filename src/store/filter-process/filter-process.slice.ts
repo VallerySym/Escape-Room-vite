@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-
-type FiltersSliceType = {
-  currentTheme: string;
-  currentDifficulty: string;
-};
+import { FiltersProcess } from '../../types/state';
 
 type ChangeThemePayload = {
   theme: string;
@@ -14,7 +10,7 @@ type changeDifficultyPayload = {
   difficulty: string;
 };
 
-const initialState: FiltersSliceType = {
+const initialState: FiltersProcess = {
   currentTheme: 'all',
   currentDifficulty: 'any',
 };

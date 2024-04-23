@@ -5,12 +5,13 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilterSection from '../../components/filter-section/filter-section';
 import { QuestThemeFilters, QuestDifficultyFilters } from '../../const';
+import Spinner from '../../components/spinner/spinner';
 
 function MainPage(): JSX.Element {
   const quests = useAppSelector((state) => state.QUESTS.questsData);
   const currentTheme = useAppSelector((state) => state.FILTERS.currentTheme);
   const currentDifficulty = useAppSelector((state) => state.FILTERS.currentDifficulty);
-  // const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
+  const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
 
   const isNotAllOrAny = (value: string) => value !== 'all' && value !== 'any';
 
@@ -22,9 +23,9 @@ function MainPage(): JSX.Element {
     return themeFilter && difficultyFilter;
   });
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="wrapper">
