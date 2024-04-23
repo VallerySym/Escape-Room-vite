@@ -10,7 +10,7 @@ function MainPage(): JSX.Element {
   const quests = useAppSelector((state) => state.QUESTS.questsData);
   const currentTheme = useAppSelector((state) => state.FILTERS.currentTheme);
   const currentDifficulty = useAppSelector((state) => state.FILTERS.currentDifficulty);
-  const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
+  // const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
 
   const isNotAllOrAny = (value: string) => value !== 'all' && value !== 'any';
 
@@ -44,8 +44,8 @@ function MainPage(): JSX.Element {
           </div>
           <div className="page-content__item">
             <form className="filter" action="#" method="get">
-            <FilterSection filterTheme='Тематика' filters={QuestThemeFilters} />
-            <FilterSection filterTheme='Сложность' filters={QuestDifficultyFilters} />
+              <FilterSection filterTheme='Тематика' filters={QuestThemeFilters} />
+              <FilterSection filterTheme='Сложность' filters={QuestDifficultyFilters} />
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>

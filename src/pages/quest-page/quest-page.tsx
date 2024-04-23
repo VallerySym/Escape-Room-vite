@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { QuestsInfo } from '../../types/quest-info';
+import { Quest } from '../../types/quest';
 import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 type QuestPageProps = {
-  quests: QuestsInfo;
+  quests: Quest;
 }
 
 function QuestPage({ quests }: QuestPageProps): JSX.Element {
