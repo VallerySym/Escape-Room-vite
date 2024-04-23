@@ -136,4 +136,5 @@ export enum NameSpace {
   Auth = 'AUTH',
 }
 
-
+export const OFFICE_POSITION_LATITUDE = 59.968253;
+export const OFFICE_POSITION_LONGITUDE = 30.317505;
