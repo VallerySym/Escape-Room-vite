@@ -23,4 +23,3 @@ export type FiltersProcess = {
     currentTheme: string;
     currentDifficulty: string;
   };
-  
