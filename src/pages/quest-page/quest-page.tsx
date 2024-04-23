@@ -7,6 +7,7 @@ import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { fetchQuestById } from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 function QuestPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,9 +23,9 @@ function QuestPage(): JSX.Element {
   const currentQuest = useAppSelector((state) => state.QUEST.questData);
   const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
 
-  // if (isLoading) {
-  //   return <Loader/>;
-  // }
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="wrapper">
