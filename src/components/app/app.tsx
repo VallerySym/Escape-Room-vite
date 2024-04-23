@@ -9,13 +9,8 @@ import LoginPage from '../../pages/login-page/login-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import QuestPage from '../../pages/quest-page/quest-page';
-import { QuestsInfo } from '../../types/quest-info';
 
-type AppProps = {
- quests: QuestsInfo;
-}
-
-function App({quests}: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -42,7 +37,7 @@ function App({quests}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Quest}
-            element={<QuestPage quests={quests} />}
+            element={<QuestPage />}
           />
           <Route
             path={AppRoute.Login}

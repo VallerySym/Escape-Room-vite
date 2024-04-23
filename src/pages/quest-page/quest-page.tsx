@@ -1,21 +1,30 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Quest } from '../../types/quest';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { fetchQuestById } from '../../store/api-actions';
 
-type QuestPageProps = {
-  quests: Quest;
-}
-
-function QuestPage({ quests }: QuestPageProps): JSX.Element {
+function QuestPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const params = useParams();
   const cardId = params.id;
-  const selectedCard = quests.filter((quest) => quest.id === cardId)[0];
-  const { title, peopleMinMax, level, type, quest} = selectedCard;
-  const { description, coverImg, coverImgWebp } = quest;
+
+  useEffect(() => {
+    if (cardId) {
+      dispatch(fetchQuestById(cardId));
+    }
+  }, [cardId, dispatch]);
+
+  const currentQuest = useAppSelector((state) => state.QUEST.questData);
+  const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
+
+  // if (isLoading) {
+  //   return <Loader/>;
+  // }
 
   return (
     <div className="wrapper">
@@ -26,34 +35,34 @@ function QuestPage({ quests }: QuestPageProps): JSX.Element {
       <main className="decorated-page quest-page">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
-            <source type="image/webp" srcSet={coverImgWebp} />
-            <img src={coverImg} srcSet={coverImg} width={1366} height={768} alt="" />
+            <source type="image/webp" srcSet={currentQuest?.coverImgWebp} />
+            <img src={currentQuest?.coverImg} srcSet={currentQuest?.coverImg} width={1366} height={768} alt="" />
           </picture>
         </div>
         <div className="container container--size-l">
           <div className="quest-page__content">
             <h1 className="title title--size-l title--uppercase quest-page__title">
-              {title}
+              {currentQuest?.title}
             </h1>
             <p className="subtitle quest-page__subtitle">
-              <span className="visually-hidden">Жанр:</span>{type}
+              <span className="visually-hidden">Жанр:</span>{currentQuest?.type}
             </p>
             <ul className="tags tags--size-l quest-page__tags">
               <li className="tags__item">
                 <svg width={11} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-person" />
                 </svg>
-                {peopleMinMax} чел
+                {currentQuest?.peopleMinMax} чел
               </li>
               <li className="tags__item">
                 <svg width={14} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-level" />
                 </svg>
-                {level}
+                {currentQuest?.level}
               </li>
             </ul>
             <p className="quest-page__description">
-              {description}
+              {currentQuest?.description}
             </p>
             <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Booking}`}>Забронировать</Link>
           </div>

@@ -1,16 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchQuests } from '../api-actions';
-import { QuestsInfo } from '../../types/quest-card';
+import { QuestsProcess } from '../../types/state';
 import { NameSpace, DEFAULT_GERNE } from '../../const';
 
-type initialState = {
-    questsData: QuestsInfo[];
-    gerneActive: string;
-    loadingStatus: boolean;
-    errorStatus: boolean;
-};
-
-const initialState: initialState = {
+const initialState: QuestsProcess = {
   questsData: [],
   gerneActive: DEFAULT_GERNE,
   loadingStatus: false,
