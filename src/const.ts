@@ -138,3 +138,7 @@ export enum NameSpace {
 
 export const OFFICE_POSITION_LATITUDE = 59.968253;
 export const OFFICE_POSITION_LONGITUDE = 30.317505;
+
+export const URL_MARKER_DEFAULT = './public/img/svg/pin-default.svg';
+
+export const URL_MARKER_CURRENT = './public/img/svg/pin-active.svg';
