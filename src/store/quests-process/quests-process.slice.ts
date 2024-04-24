@@ -1,38 +1,50 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchQuests } from '../api-actions';
 import { QuestsProcess } from '../../types/state';
-import { NameSpace, DEFAULT_GERNE } from '../../const';
+import { NameSpace } from '../../const';
 
 const initialState: QuestsProcess = {
   questsData: [],
-  gerneActive: DEFAULT_GERNE,
-  loadingStatus: false,
-  errorStatus: false,
+  allQuestsData: [],
+  questType: 'all',
+  difficultLevel: 'any',
+  questsIsLoading: false,
+  questsIsNotFound: false,
 };
 
-export const QuestsSlice = createSlice({
+export const questsSlice = createSlice({
   name: NameSpace.Quests,
   initialState,
   reducers: {
-    setGerneActive(state, action: PayloadAction<string>) {
-      state.gerneActive = action.payload;
+    setQuestType: (state: QuestsProcess, action: PayloadAction<string>) => {
+      state.questType = action.payload;
+    },
+    setDifficultLevel: (state: QuestsProcess, action: PayloadAction<string>) => {
+      state.difficultLevel = action.payload;
+    },
+    setQuests(state) {
+      if (state.allQuestsData.length) {
+        const questsByType= state.allQuestsData.filter((item) => item?.type === state.questType);
+
+        state.questsData = (state.questType, questsByType);
+      }
     },
   },
   extraReducers(builder) {
     builder
       .addCase(fetchQuests.pending, (state) => {
-        state.errorStatus = false;
-        state.loadingStatus = true;
+        state.questsIsNotFound = false;
+        state.questsIsLoading = true;
       })
       .addCase(fetchQuests.fulfilled, (state, action) => {
         state.questsData = action.payload;
-        state.loadingStatus = false;
+        state.questsIsLoading = false;
       })
       .addCase(fetchQuests.rejected, (state) => {
-        state.loadingStatus = false;
-        state.errorStatus = true;
+        state.questsIsLoading = false;
+        state.questsIsNotFound = true;
       });
   }
 });
 
-export const questsReducer = QuestsSlice.reducer;
+export const { setQuestType, setDifficultLevel, setQuests } = questsSlice.actions;

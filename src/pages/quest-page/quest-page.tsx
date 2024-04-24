@@ -8,6 +8,8 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { fetchQuestById } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
+import { getQuestIsLoading, getQuest } from '../../store/quest-process/quest-process.selectors';
+import { QUEST_TYPES } from '../../const';
 
 function QuestPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,8 +22,8 @@ function QuestPage(): JSX.Element {
     }
   }, [cardId, dispatch]);
 
-  const currentQuest = useAppSelector((state) => state.QUEST.questData);
-  const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
+  const currentQuest = useAppSelector(getQuest);
+  const isLoading = useAppSelector(getQuestIsLoading);
 
   if (isLoading) {
     return <Spinner />;
@@ -46,7 +48,8 @@ function QuestPage(): JSX.Element {
               {currentQuest?.title}
             </h1>
             <p className="subtitle quest-page__subtitle">
-              <span className="visually-hidden">Жанр:</span>{currentQuest?.type}
+              <span className="visually-hidden">Жанр:</span>
+              {QUEST_TYPES[currentQuest?.type as keyof typeof QUEST_TYPES]}
             </p>
             <ul className="tags tags--size-l quest-page__tags">
               <li className="tags__item">

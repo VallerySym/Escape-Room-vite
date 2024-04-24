@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
-import { questsReducer } from './quests-process/quests-process.slice';
-import { questReducer } from './quest-process/quest-process.slice';
-import { filtersReducer } from './filter-process/filter-process.slice';
+import { questsSlice } from './quests-process/quests-process.slice';
+import { questSlice } from './quest-process/quest-process.slice';
+import { userSlice } from './user-process/user-process.slice';
 import { NameSpace } from '../const';
 
 const rootReducer = combineReducers({
-  [NameSpace.Quests]: questsReducer,
-  [NameSpace.Quest]: questReducer,
-  [NameSpace.Filters]: filtersReducer,
+  [NameSpace.Quests]: questsSlice.reducer,
+  [NameSpace.Quest]: questSlice.reducer,
+  [NameSpace.User]: userSlice.reducer,
 });
 
 export default rootReducer;

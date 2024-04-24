@@ -24,8 +24,6 @@ export const GERNE_LIST: GerneList = {
   SciFi: 'Sci-fi',
 } as const;
 
-export const DEFAULT_GERNE = GERNE_LIST.AllQuests;
-
 export const gernesList = [
   GERNE_LIST.AllQuests,
   GERNE_LIST.Adventures,
@@ -34,6 +32,12 @@ export const gernesList = [
   GERNE_LIST.Detective,
   GERNE_LIST.SciFi
 ];
+
+export const DIFFICULTY_LEVELS = {
+  'easy': 'Легкий',
+  'medium': 'Средний',
+  'hard': 'Сложный'
+};
 
 export type FilterTypes = {
   name: string;
@@ -44,82 +48,6 @@ export type FilterTypes = {
   iconWidth?: number;
   iconHeight?: number;
 };
-
-export const QuestThemeFilters: FilterTypes[] = [
-  {
-    name: 'type',
-    id: 'all',
-    labelText: 'Все квесты',
-    isDefault: true,
-    iconName: 'all-quests',
-    iconWidth: 26,
-    iconHeight: 30,
-  },
-  {
-    name: 'type',
-    id: 'adventure',
-    labelText: 'Приключения',
-    iconName: 'adventure',
-    iconWidth: 36,
-    iconHeight: 30,
-  },
-  {
-    name: 'type',
-    id: 'horror',
-    labelText: 'Ужасы',
-    iconName: 'horror',
-    iconWidth: 30,
-    iconHeight: 30,
-  },
-  {
-    name: 'type',
-    id: 'mystic',
-    labelText: 'Мистика',
-    iconName: 'mystic',
-    iconWidth: 30,
-    iconHeight: 30,
-  },
-  {
-    name: 'type',
-    id: 'detective',
-    labelText: 'Детектив',
-    iconName: 'detective',
-    iconWidth: 40,
-    iconHeight: 30,
-  },
-  {
-    name: 'type',
-    id: 'sciFi',
-    labelText: 'Sci-fi',
-    iconName: 'sci-fi',
-    iconWidth: 28,
-    iconHeight: 30,
-  },
-];
-
-export const QuestDifficultyFilters: FilterTypes[] = [
-  {
-    name: 'level',
-    id: 'any',
-    labelText: 'Любой',
-    isDefault: true,
-  },
-  {
-    name: 'level',
-    id: 'easy',
-    labelText: 'Лёгкий',
-  },
-  {
-    name: 'level',
-    id: 'medium',
-    labelText: 'Средний',
-  },
-  {
-    name: 'level',
-    id: 'hard',
-    labelText: 'Сложный',
-  },
-];
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
@@ -134,6 +62,36 @@ export enum NameSpace {
   Quest = 'QUEST',
   Filters = 'FILTERS',
   Auth = 'AUTH',
+  User='USER'
 }
 
+export const OFFICE_POSITION_LATITUDE = 59.968253;
+export const OFFICE_POSITION_LONGITUDE = 30.317505;
 
+export const URL_MARKER_DEFAULT = './public/img/svg/pin-default.svg';
+
+export const URL_MARKER_CURRENT = './public/img/svg/pin-active.svg';
+
+export const QUEST_TYPES_FILTERS = [
+  { id: 'all', icon: 'icon-all-quests', text: 'Все квесты', width: 26, height: 30 },
+  { id: 'adventures', icon: 'icon-adventure', text: 'Приключения', width: 36, height: 30 },
+  { id: 'horror', icon: 'icon-horror', text: 'Ужасы', width: 30, height: 30 },
+  { id: 'mystic', icon: 'icon-mystic', text: 'Мистика', width: 30, height: 30 },
+  { id: 'detective', icon: 'icon-detective', text: 'Детектив', width: 40, height: 30 },
+  { id: 'sci-fi', icon: 'icon-sci-fi', text: 'Sci-fi', width: 28, height: 30 },
+];
+
+export const QUEST_TYPES = {
+  'adventures': 'Приключения',
+  'horror': 'Ужасы',
+  'mystic': 'Мистика',
+  'detective': 'Детектив',
+  'sci-fi': 'Sci-fi'
+};
+
+export const QUEST_LEVELS_FILTERS = [
+  { id: 'any', text: 'Любой' },
+  { id: 'easy', text: 'Лёгкий' },
+  { id: 'medium', text: 'Средний' },
+  { id: 'hard', text: 'Сложный' },
+];

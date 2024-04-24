@@ -1,8 +1,41 @@
 import { Helmet } from 'react-helmet-async';
+import { useRef, FormEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { AuthorizationStatus, AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { getQuests } from '../../store/action';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginPage(): JSX.Element {
+
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(loginAction({
+        email: loginRef.current.value,
+        password: passwordRef.current.value
+      }));
+    }
+  };
+
+  const authStatus = useAppSelector(getAuthStatus);
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authStatus, navigate]);
+
   return (
     <div className="wrapper">
       <Helmet>
@@ -31,15 +64,17 @@ function LoginPage(): JSX.Element {
               className="login-form"
               action="https://echo.htmlacademy.ru/"
               method="post"
+              onSubmit={handleSubmit}
             >
               <div className="login-form__inner-wrapper">
                 <h1 className="title title--size-s login-form__title">Вход</h1>
                 <div className="login-form__inputs">
                   <div className="custom-input login-form__input">
                     <label className="custom-input__label" htmlFor="email">
-                        E&nbsp;–&nbsp;mail
+                      E&nbsp;–&nbsp;mail
                     </label>
                     <input
+                      ref={loginRef}
                       type="email"
                       id="email"
                       name="email"
@@ -49,9 +84,10 @@ function LoginPage(): JSX.Element {
                   </div>
                   <div className="custom-input login-form__input">
                     <label className="custom-input__label" htmlFor="password">
-                        Пароль
+                      Пароль
                     </label>
                     <input
+                     ref={passwordRef}
                       type="password"
                       id="password"
                       name="password"
@@ -64,7 +100,7 @@ function LoginPage(): JSX.Element {
                   className="btn btn--accent btn--general login-form__submit"
                   type="submit"
                 >
-                    Войти
+                  Войти
                 </button>
               </div>
               <label className="custom-checkbox login-form__checkbox">
@@ -80,11 +116,11 @@ function LoginPage(): JSX.Element {
                   </svg>
                 </span>
                 <span className="custom-checkbox__label">
-                    Я&nbsp;согласен с
+                  Я&nbsp;согласен с
                   <a className="link link--active-silver link--underlined" href="#">
-                      правилами обработки персональных данных
+                    правилами обработки персональных данных
                   </a>
-                    &nbsp;и пользовательским соглашением
+                  &nbsp;и пользовательским соглашением
                 </span>
               </label>
             </form>

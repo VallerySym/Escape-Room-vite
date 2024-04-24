@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
+import { OFFICE_POSITION_LATITUDE, OFFICE_POSITION_LONGITUDE } from '../../const';
 
 function ContactsPage(): JSX.Element {
   return (
@@ -67,9 +69,7 @@ function ContactsPage(): JSX.Element {
               </div>
             </dl>
             <div className="contacts__map">
-              <div className="map">
-                <div className="map__container" />
-              </div>
+              <Map latitude={OFFICE_POSITION_LATITUDE} longitude={OFFICE_POSITION_LONGITUDE} />
             </div>
           </div>
         </div>
