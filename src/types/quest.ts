@@ -3,9 +3,9 @@ export type Quest = {
   title: string;
   previewImg: string;
   previewImgWebp: string;
-  level: 'easy' | 'medium' | 'hard';
-  type: 'adventures' | 'horror' | 'mystic' | 'detective' | 'sci-fi';
-  peopleMinMax: [number, number];
+  level: string;
+  type: string;
+  peopleMinMax: number[];
   description: string;
   coverImg: string;
   coverImgWebp: string;

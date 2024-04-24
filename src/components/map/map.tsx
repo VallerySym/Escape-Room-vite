@@ -1,12 +1,12 @@
 import { TileLayer, MapContainer, Marker } from 'react-leaflet';
-import { BookingData } from '../../types/booking-data';
+import { BookingQuest} from '../../types/booking-quest';
 import { Icon } from 'leaflet';
 import { useEffect, useState } from 'react';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-    locations?: BookingData[];
+    locations?: BookingQuest[];
     latitude: number;
     longitude: number;
 }

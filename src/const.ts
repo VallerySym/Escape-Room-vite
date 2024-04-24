@@ -55,6 +55,8 @@ export enum APIRoute {
   Quests = '/quest',
   Login = '/login',
   Logout = '/logout',
+  Booking='/booking',
+  MyQuests = '/my-quests',
 }
 
 export enum NameSpace {
@@ -62,7 +64,8 @@ export enum NameSpace {
   Quest = 'QUEST',
   Filters = 'FILTERS',
   Auth = 'AUTH',
-  User='USER'
+  User='USER',
+  Booking='BOOKING'
 }
 
 export const OFFICE_POSITION_LATITUDE = 59.968253;
@@ -82,6 +85,7 @@ export const QUEST_TYPES_FILTERS = [
 ];
 
 export const QUEST_TYPES = {
+  'all-quests': 'Все квесты',
   'adventures': 'Приключения',
   'horror': 'Ужасы',
   'mystic': 'Мистика',
@@ -95,3 +99,10 @@ export const QUEST_LEVELS_FILTERS = [
   { id: 'medium', text: 'Средний' },
   { id: 'hard', text: 'Сложный' },
 ];
+
+export enum RequestStatus {
+  Idle = 'idle',
+  Pending = 'pending',
+  Success = 'success',
+  Error = 'error',
+}
