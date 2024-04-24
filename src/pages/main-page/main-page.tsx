@@ -5,10 +5,10 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FilterItem from '../../components/filter-section/filter-section';
 import Spinner from '../../components/spinner/spinner';
-import { getQuestType, getDifficultLevel, getQuestsIsLoading } from '../../store/quests-process/quests-process.selectors';
+import { getQuestType, getDifficultLevel, getQuestsIsLoading, getQuests } from '../../store/quests-process/quests-process.selectors';
 
 function MainPage(): JSX.Element {
-  const quests = useAppSelector((state) => state.QUESTS.questsData);
+  const quests = useAppSelector(getQuests);
   const currentTheme = useAppSelector(getQuestType);
   const currentDifficulty = useAppSelector(getDifficultLevel);
   const isLoading = useAppSelector(getQuestsIsLoading);
@@ -17,10 +17,10 @@ function MainPage(): JSX.Element {
 
   const filteredQuests = quests.filter((quest) => {
 
-    const themeFilter = currentTheme === 'all' || currentTheme === quest.type || !isNotAllOrAny(currentTheme);
+    const typeFilter = currentTheme === 'all' || currentTheme === quest.type || !isNotAllOrAny(currentTheme);
     const difficultyFilter = currentDifficulty === 'any' || currentDifficulty === quest.level || !isNotAllOrAny(currentDifficulty);
 
-    return themeFilter && difficultyFilter;
+    return typeFilter && difficultyFilter;
   });
 
   if (isLoading) {
@@ -43,10 +43,8 @@ function MainPage(): JSX.Element {
               Выберите тематику
             </h2>
           </div>
-          <div className="page-content__item">
-            <form className="filter" action="#" method="get">
+          <div className="page-content__item">      
               <FilterItem />
-            </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
           <div className="cards-grid">

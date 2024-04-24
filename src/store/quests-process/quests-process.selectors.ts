@@ -1,4 +1,5 @@
 import { NameSpace } from '../../const';
+import { QuestsCard } from '../../types/quest-card';
 import { State } from '../../types/state';
 
 export const getDifficultLevel = (state: Pick<State, NameSpace.Quests>): string =>
@@ -6,6 +7,9 @@ export const getDifficultLevel = (state: Pick<State, NameSpace.Quests>): string 
 
 export const getQuestType = (state: Pick<State, NameSpace.Quests>): string =>
   state[NameSpace.Quests].questType;
+
+export const getQuests = (state: Pick<State, NameSpace.Quests>) =>
+  state[NameSpace.Quests].questsData;
 
 export const getQuestsIsLoading = (state: Pick<State, NameSpace.Quests>): boolean =>
   state[NameSpace.Quests].questsIsLoading;

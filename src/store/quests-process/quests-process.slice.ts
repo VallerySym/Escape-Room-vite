@@ -5,6 +5,7 @@ import { NameSpace } from '../../const';
 
 const initialState: QuestsProcess = {
   questsData: [],
+  allQuestsData: [],
   questType: 'all',
   difficultLevel: 'any',
   questsIsLoading: false,
@@ -20,7 +21,14 @@ export const questsSlice = createSlice({
     },
     setDifficultLevel: (state: QuestsProcess, action: PayloadAction<string>) => {
       state.difficultLevel = action.payload;
-    }
+    },
+    setQuests(state) {
+      if (state.allQuestsData.length) {
+        const questsByType= state.allQuestsData.filter((item) => item?.type === state.questType);
+
+        state.questsData = (state.questType, questsByType);
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -39,4 +47,4 @@ export const questsSlice = createSlice({
   }
 });
 
-export const { setQuestType, setDifficultLevel } = questsSlice.actions;
+export const { setQuestType, setDifficultLevel, setQuests } = questsSlice.actions;

@@ -10,6 +10,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type QuestsProcess = {
   questsData: QuestsCard[];
+  allQuestsData: QuestsCard[];
   questType: string,
   difficultLevel: string,
   questsIsLoading: boolean,

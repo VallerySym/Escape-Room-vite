@@ -81,6 +81,14 @@ export const QUEST_TYPES_FILTERS = [
   { id: 'sci-fi', icon: 'icon-sci-fi', text: 'Sci-fi', width: 28, height: 30 },
 ];
 
+export const QUEST_TYPES = {
+  'adventures': 'Приключения',
+  'horror': 'Ужасы',
+  'mystic': 'Мистика',
+  'detective': 'Детектив',
+  'sci-fi': 'Sci-fi'
+};
+
 export const QUEST_LEVELS_FILTERS = [
   { id: 'any', text: 'Любой' },
   { id: 'easy', text: 'Лёгкий' },
