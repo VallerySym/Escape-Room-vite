@@ -9,7 +9,7 @@ const initialState: QuestProcess = {
   errorStatus: false,
 };
 
-export const QuestSlice = createSlice({
+export const questSlice = createSlice({
   name: NameSpace.Quest,
   initialState,
   reducers: {},
@@ -29,6 +29,3 @@ export const QuestSlice = createSlice({
       });
   }
 });
-
-
-export const questReducer = QuestSlice.reducer;

@@ -15,7 +15,7 @@ const initialState: FiltersProcess = {
   currentDifficulty: 'any',
 };
 
-export const FiltersSlice = createSlice({
+export const filtersSlice = createSlice({
   name: NameSpace.Filters,
   initialState,
   reducers: {
@@ -29,5 +29,3 @@ export const FiltersSlice = createSlice({
     },
   },
 });
-
-export const filtersReducer = FiltersSlice.reducer;

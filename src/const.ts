@@ -134,6 +134,7 @@ export enum NameSpace {
   Quest = 'QUEST',
   Filters = 'FILTERS',
   Auth = 'AUTH',
+  User='USER'
 }
 
 export const OFFICE_POSITION_LATITUDE = 59.968253;

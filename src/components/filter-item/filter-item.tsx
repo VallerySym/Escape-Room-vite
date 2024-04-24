@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { FiltersSlice } from '../../store/filter-process/filter-process.slice';
+import { filtersSlice } from '../../store/filter-process/filter-process.slice';
 import { FilterTypes } from '../../const';
 
 type FilterItemProps = {
@@ -11,7 +11,7 @@ const FilterItem = ({ filter }: FilterItemProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const currentDifficultyFilter = useAppSelector((state) => state.FILTERS.currentDifficulty);
   const currentThemeFilter = useAppSelector((state) => state.FILTERS.currentTheme);
-  const { changeTheme, changeDifficulty } = FiltersSlice.actions;
+  const { changeTheme, changeDifficulty } = filtersSlice.actions;
   const { id, name, labelText, iconName, iconHeight, iconWidth } = filter;
 
   const isChecked =
