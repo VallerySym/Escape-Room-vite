@@ -3,15 +3,15 @@ import { useAppSelector } from '../../hooks/index';
 import QuestCard from '../../components/quest-card/quest-card';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import FilterSection from '../../components/filter-section/filter-section';
-import { QuestThemeFilters, QuestDifficultyFilters } from '../../const';
+import FilterItem from '../../components/filter-section/filter-section';
 import Spinner from '../../components/spinner/spinner';
+import { getQuestType, getDifficultLevel, getQuestsIsLoading } from '../../store/quests-process/quests-process.selectors';
 
 function MainPage(): JSX.Element {
   const quests = useAppSelector((state) => state.QUESTS.questsData);
-  const currentTheme = useAppSelector((state) => state.FILTERS.currentTheme);
-  const currentDifficulty = useAppSelector((state) => state.FILTERS.currentDifficulty);
-  const isLoading = useAppSelector((state) => state.QUESTS.loadingStatus);
+  const currentTheme = useAppSelector(getQuestType);
+  const currentDifficulty = useAppSelector(getDifficultLevel);
+  const isLoading = useAppSelector(getQuestsIsLoading);
 
   const isNotAllOrAny = (value: string) => value !== 'all' && value !== 'any';
 
@@ -45,8 +45,7 @@ function MainPage(): JSX.Element {
           </div>
           <div className="page-content__item">
             <form className="filter" action="#" method="get">
-              <FilterSection filterTheme='Тематика' filters={QuestThemeFilters} />
-              <FilterSection filterTheme='Сложность' filters={QuestDifficultyFilters} />
+              <FilterItem />
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>

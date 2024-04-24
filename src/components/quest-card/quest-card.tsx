@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { QuestsCard } from '../../types/quest-card';
-import { replaceDifficulty } from '../../utils/common';
+import { DIFFICULTY_LEVELS } from '../../const';
 
 type QuestCardProps = {
   questCard: QuestsCard;
@@ -43,7 +43,7 @@ const QuestCard = ({ questCard }: QuestCardProps) => {
             <svg width={14} height={14} aria-hidden="true">
               <use xlinkHref="#icon-level" />
             </svg>
-            {replaceDifficulty(level)}
+            {DIFFICULTY_LEVELS[level as keyof typeof DIFFICULTY_LEVELS]}
           </li>
         </ul>
       </div>
