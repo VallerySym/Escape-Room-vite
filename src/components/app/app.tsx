@@ -1,6 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../../pages/main-page/main-page';
 import BookingPage from '../../pages/booking-page/booking-page';
@@ -9,8 +10,11 @@ import LoginPage from '../../pages/login-page/login-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import QuestPage from '../../pages/quest-page/quest-page';
+import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function App(): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthStatus);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -22,7 +26,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Booking}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <BookingPage />
               </PrivateRoute>
             }
@@ -30,7 +34,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.MyQuests}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <MyQuestsPage />
               </PrivateRoute>
             }
