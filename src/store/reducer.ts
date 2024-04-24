@@ -8,7 +8,7 @@ import { NameSpace } from '../const';
 const rootReducer = combineReducers({
   [NameSpace.Quests]: questsSlice.reducer,
   [NameSpace.Quest]: questSlice.reducer,
-  [NameSpace.Filters]: filtersSlice.reducer,
+  // [NameSpace.Filters]: filtersSlice.reducer,
   [NameSpace.User]: userSlice.reducer,
 });
 
