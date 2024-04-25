@@ -71,7 +71,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   }
 );
 
-export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], DetailedQuest['id'], {
+export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -79,13 +79,13 @@ export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], DetailedQue
   'quests/fetchBookingQuestInfo',
   async(id, {dispatch, extra: api }) => {
     const {data} = await api.get<BookingInfo[]>(`${APIRoute.Quests}/${id}/booking`);
-    dispatch(fetchDetailedQuest(id));
+    dispatch(fetchQuests());
     dispatch(setSelectedQuestPlace(data[0]));
     dispatch(setFormPlaceId(data[0].id));
     return data;
   });
 
-export const fetchDetailedQuest = createAsyncThunk<DetailedQuest, DetailedQuest['id'], {
+export const fetchDetailedQuest = createAsyncThunk<DetailedQuest, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -118,5 +118,17 @@ export const fetchReservedQuests = createAsyncThunk<ReservedQuest[], undefined, 
   async(_arg, {extra: api}) => {
     const {data} = await api.get<ReservedQuest[]>(APIRoute.MyQuests);
     return data;
+  }
+);
+
+export const deleteReservedQuest = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'deleteReservedQuest',
+  async(id, {dispatch, extra: api}) => {
+    await api.delete<void>(`${APIRoute.MyQuests}/${id}`);
+    dispatch(fetchReservedQuests());
   }
 );

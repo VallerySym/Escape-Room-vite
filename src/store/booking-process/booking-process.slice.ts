@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { BookingProcess, DetailedQuest, QuestFormData } from '../../types/state';
-import { fetchBookingQuestInfo, fetchDetailedQuest, fetchQuests, fetchReservedQuests } from '../api-actions';
+import { fetchBookingQuestInfo, fetchDetailedQuest, fetchReservedQuests } from '../api-actions';
 import { QUEST_TYPES } from '../../const';
 import { BookingInfo } from '../../types/booking-info';
 
@@ -16,7 +16,7 @@ const initialDetailedQuest: DetailedQuest = {
   description: '',
   coverImg: '',
   coverImgWebp: '',
-};
+}
 
 const initialQuestPlace: BookingInfo = {
   id: '',
@@ -52,7 +52,6 @@ const initialState: BookingProcess = {
   questType: QUEST_TYPES['all-quests']
 };
 
-
 export const bookingSlice = createSlice({
   name: NameSpace.Booking,
   initialState,
@@ -87,9 +86,6 @@ export const bookingSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-    .addCase(fetchQuests.fulfilled, (state, action) => {
-      state.quests = action.payload;
-    })
     .addCase(fetchDetailedQuest.fulfilled, (state, action) => {
       state.detailedQuest = action.payload;
     })

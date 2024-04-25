@@ -56,7 +56,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Booking='/booking',
-  MyQuests = '/my-quests',
+  MyQuests = '/reservation',
 }
 
 export enum NameSpace {
@@ -105,4 +105,9 @@ export enum RequestStatus {
   Pending = 'pending',
   Success = 'success',
   Error = 'error',
+}
+
+export enum QuestDate {
+  today = 'Сегодня',
+  tomorrow = 'Завтра',
 }

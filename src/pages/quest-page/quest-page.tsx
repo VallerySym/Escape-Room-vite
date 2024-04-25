@@ -1,28 +1,31 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute } from '../../const';
+
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { fetchQuestById } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import { getQuestIsLoading, getQuest } from '../../store/quest-process/quest-process.selectors';
+
+import { fetchDetailedQuest } from '../../store/api-actions';
+import { getQuestIsLoading } from '../../store/quest-process/quest-process.selectors';
+import { getDetailedQuest } from '../../store/booking-process/booking-process.selectors';
 import { QUEST_TYPES } from '../../const';
 
 function QuestPage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const params = useParams();
   const cardId = params.id;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (cardId) {
-      dispatch(fetchQuestById(cardId));
+      dispatch(fetchDetailedQuest(cardId));
     }
   }, [cardId, dispatch]);
 
-  const currentQuest = useAppSelector(getQuest);
+  const currentQuest = useAppSelector(getDetailedQuest);
   const isLoading = useAppSelector(getQuestIsLoading);
 
   if (isLoading) {
@@ -49,26 +52,36 @@ function QuestPage(): JSX.Element {
             </h1>
             <p className="subtitle quest-page__subtitle">
               <span className="visually-hidden">Жанр:</span>
-              {QUEST_TYPES[currentQuest?.type as keyof typeof QUEST_TYPES]}
+              {QUEST_TYPES[currentQuest.type as keyof typeof QUEST_TYPES]}
             </p>
             <ul className="tags tags--size-l quest-page__tags">
               <li className="tags__item">
                 <svg width={11} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-person" />
                 </svg>
-                {currentQuest?.peopleMinMax} чел
+                {currentQuest.peopleMinMax[0]}-{currentQuest.peopleMinMax[1]} чел
               </li>
               <li className="tags__item">
                 <svg width={14} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-level" />
                 </svg>
-                {currentQuest?.level}
+                {currentQuest.level}
               </li>
             </ul>
             <p className="quest-page__description">
-              {currentQuest?.description}
+              {currentQuest.description}
             </p>
-            <Link className="btn btn--accent btn--cta quest-page__btn" to={`${AppRoute.Booking}`}>Забронировать</Link>
+            <Link
+              id={cardId}
+              className="btn btn--accent btn--cta quest-page__btn"
+              to={`/quest/${(cardId) as string}/booking`}
+              onClick={(evt) => {
+                evt.preventDefault();
+                navigate(`/quest/${(cardId) as string}/booking`);
+              }}
+            >
+              Забронировать
+            </Link>
           </div>
         </div>
       </main>

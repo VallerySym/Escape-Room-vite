@@ -19,7 +19,7 @@ function BookingPage(): JSX.Element {
   const detailedQuest = useAppSelector(getDetailedQuest);
   const isWithChildren = useAppSelector(getIsWithChildrenFormData);
 
-  const currentQuest = useAppSelector(getQuest);
+  // const currentQuest = useAppSelector(getQuest);
 
   useEffect(() => {
     if (id) {
@@ -43,11 +43,11 @@ function BookingPage(): JSX.Element {
           <picture>
             <source
               type="image/webp"
-              srcSet={currentQuest?.coverImgWebp}
+              srcSet={detailedQuest.coverImgWebp}
             />
             <img
-              src={currentQuest?.coverImg}
-              srcSet={currentQuest?.coverImgWebp}
+              src={detailedQuest.coverImg}
+              srcSet={detailedQuest.coverImgWebp}
               width={1366}
               height={1959}
               alt=""
@@ -60,7 +60,7 @@ function BookingPage(): JSX.Element {
           Бронирование квеста
             </h1>
             <p className="title title--size-m title--uppercase page-content__title">
-              {currentQuest?.title}
+              {detailedQuest.title}
             </p>
           </div>
           <div className="page-content__item">

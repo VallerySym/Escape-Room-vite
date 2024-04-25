@@ -4,7 +4,6 @@ import { fetchReservedQuests, postFormData } from '../../store/api-actions';
 import { setFormChildren, setFormPeopleCount, setFormPerson, setFormPhone } from '../../store/booking-process/booking-process.slice';
 import { getQuestFormData } from '../../store/booking-process/booking-process.selectors'
 import { BookingInfo } from '../../types/booking-info';
-import { DetailedQuest } from '../../types/state';
 import TodayQuestTime from '../quest-time/today-quest-time';
 import TomorrowQuestTime from '../quest-time/tomorrow-quest-time';
 import { SubmitHandler, useForm } from 'react-hook-form';

@@ -4,6 +4,7 @@ import { QuestsCard } from './quest-card.js';
 import { UserData } from './user-data.js';
 import { AuthorizationStatus } from '../const.js';
 import { BookingInfo } from './booking-info.js';
+import { Location } from './location.js';
 
 export type State = ReturnType<typeof store.getState>;
 
