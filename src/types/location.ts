@@ -1,4 +1,4 @@
 export type Location = {
     address: string;
-    coords: number[];
+    coords: [number, number];
   }

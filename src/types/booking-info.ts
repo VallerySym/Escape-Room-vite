@@ -2,7 +2,7 @@ import { Slot } from './slot';
 import { Location } from './location';
 
 export type BookingInfo = {
-    id: string;
+    id?: string;
     location: Location;
-    slots: Slot;
+    slots?: Slot;
     }

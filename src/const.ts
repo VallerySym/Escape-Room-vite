@@ -46,9 +46,9 @@ export const DEFAULT_OFFICE_LOCATION: Location = {
   coords:[59.968253, 30.317505 ]
 }
 
-export const URL_MARKER_DEFAULT = './public/img/svg/pin-default.svg';
+export const URL_MARKER_DEFAULT = '/img/svg/pin-default.svg';
 
-export const URL_MARKER_CURRENT = './public/img/svg/pin-active.svg';
+export const URL_MARKER_CURRENT = '/img/svg/pin-active.svg';
 
 export const QUEST_TYPES_FILTERS = [
   { id: 'all', icon: 'icon-all-quests', text: 'Все квесты', width: 26, height: 30 },

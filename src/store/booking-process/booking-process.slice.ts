@@ -21,7 +21,7 @@ const initialDetailedQuest: DetailedQuest = {
 const initialQuestPlace: BookingInfo = {
   id: '',
   location: {
-    coords: [],
+    coords: [0,1],
     address: ''
   },
   slots: {
