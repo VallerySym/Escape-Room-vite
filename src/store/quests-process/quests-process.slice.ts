@@ -24,7 +24,7 @@ export const questsSlice = createSlice({
     },
     setQuests(state) {
       if (state.allQuestsData.length) {
-        const questsByType= state.allQuestsData.filter((item) => item?.type === state.questType);
+        const questsByType = state.allQuestsData.filter((item) => item?.type === state.questType);
 
         state.questsData = (state.questType, questsByType);
       }

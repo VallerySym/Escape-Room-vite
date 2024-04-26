@@ -1,4 +1,4 @@
-import { GerneList } from './types/gerne-list';
+import { Location } from './types/location';
 
 export enum AppRoute {
     Main = '/',
@@ -15,38 +15,10 @@ export enum AuthorizationStatus {
     Unknown = 'UNKNOWN',
 }
 
-export const GERNE_LIST: GerneList = {
-  AllQuests: 'Все квесты',
-  Adventures: 'Приключения',
-  Horror: 'Ужасы',
-  Mystic: 'Мистика',
-  Detective: 'Детектив',
-  SciFi: 'Sci-fi',
-} as const;
-
-export const gernesList = [
-  GERNE_LIST.AllQuests,
-  GERNE_LIST.Adventures,
-  GERNE_LIST.Horror,
-  GERNE_LIST.Mystic,
-  GERNE_LIST.Detective,
-  GERNE_LIST.SciFi
-];
-
 export const DIFFICULTY_LEVELS = {
   'easy': 'Легкий',
   'medium': 'Средний',
   'hard': 'Сложный'
-};
-
-export type FilterTypes = {
-  name: string;
-  id: string;
-  labelText: string;
-  isDefault?: boolean;
-  iconName?: string;
-  iconWidth?: number;
-  iconHeight?: number;
 };
 
 export const TIMEOUT_SHOW_ERROR = 2000;
@@ -55,6 +27,8 @@ export enum APIRoute {
   Quests = '/quest',
   Login = '/login',
   Logout = '/logout',
+  Booking='/booking',
+  MyQuests = '/reservation',
 }
 
 export enum NameSpace {
@@ -62,11 +36,15 @@ export enum NameSpace {
   Quest = 'QUEST',
   Filters = 'FILTERS',
   Auth = 'AUTH',
-  User='USER'
+  User='USER',
+  Booking='BOOKING',
+  Error = 'ERROR'
 }
 
-export const OFFICE_POSITION_LATITUDE = 59.968253;
-export const OFFICE_POSITION_LONGITUDE = 30.317505;
+export const DEFAULT_OFFICE_LOCATION: Location = {
+  address: '',
+  coords:[59.968253, 30.317505 ]
+}
 
 export const URL_MARKER_DEFAULT = './public/img/svg/pin-default.svg';
 
@@ -82,6 +60,7 @@ export const QUEST_TYPES_FILTERS = [
 ];
 
 export const QUEST_TYPES = {
+  'all-quests': 'Все квесты',
   'adventures': 'Приключения',
   'horror': 'Ужасы',
   'mystic': 'Мистика',
@@ -95,3 +74,8 @@ export const QUEST_LEVELS_FILTERS = [
   { id: 'medium', text: 'Средний' },
   { id: 'hard', text: 'Сложный' },
 ];
+
+export enum QuestDate {
+  today = 'Сегодня',
+  tomorrow = 'Завтра',
+}

@@ -1,5 +1,10 @@
+export type QuestTime = {
+  time: string;
+  isAvailable: boolean;
+}
+
 export type Slot = {
-    time: string;
-    isAvailable: boolean;
-  }
+  today: QuestTime[];
+  tomorrow: QuestTime[];
+}
 

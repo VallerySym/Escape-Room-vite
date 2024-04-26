@@ -7,7 +7,7 @@ const FilterItem = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const currentDifficultyFilter = useAppSelector(getDifficultLevel);
   const currentQuestType = useAppSelector(getQuestType);
-  
+
   const handleQuestTypeChange = (questType: string) => {
     dispatch(setQuestType(questType));
   };
