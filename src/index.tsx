@@ -5,6 +5,8 @@ import App from './components/app/app';
 import { store } from './store';
 import { fetchQuests, checkAuthAction } from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
+import HistoryRouter from './components/history-router/history-router';
+import browserHistory from './browser-history';
 
 store.dispatch(fetchQuests());
 store.dispatch(checkAuthAction());
@@ -16,8 +18,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <ToastContainer />
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

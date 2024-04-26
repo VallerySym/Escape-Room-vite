@@ -9,8 +9,6 @@ import { useParams } from 'react-router-dom';
 import { getDetailedQuest,getIsWithChildrenFormData, getBookingQuestInfo, getSelectedQuestPlace} from '../../store/booking-process/booking-process.selectors';
 import { fetchBookingQuestInfo } from '../../store/api-actions';
 import { setQuestPlaceId,setFormPlaceId } from '../../store/booking-process/booking-process.slice';
-import { getQuest } from '../../store/quest-process/quest-process.selectors';
-
 
 function BookingPage(): JSX.Element {
   const {id} = useParams();
@@ -19,7 +17,6 @@ function BookingPage(): JSX.Element {
   const detailedQuest = useAppSelector(getDetailedQuest);
   const isWithChildren = useAppSelector(getIsWithChildrenFormData);
 
-  // const currentQuest = useAppSelector(getQuest);
 
   useEffect(() => {
     if (id) {
@@ -67,7 +64,7 @@ function BookingPage(): JSX.Element {
             <div className="booking-map">
               <div className="map">
                 <div className="map__container">
-                   {/* <Map /> */}
+                   {/* <Map   /> */}
                 </div>
               </div>
               <p className="booking-map__address">
