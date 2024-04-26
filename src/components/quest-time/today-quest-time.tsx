@@ -15,7 +15,6 @@ function TodayQuestTime({todayQuestTimeProps}: TodayQuestTimeProps): React.JSX.E
     dispatch(setFormDate('today'));
   };
 
-
   return (
     <div className="booking-form__date-inner-wrapper">
       {todayHours.map(({time, isAvailable}) => (

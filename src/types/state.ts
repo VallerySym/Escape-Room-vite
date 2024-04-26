@@ -13,16 +13,16 @@ export type AppDispatch = typeof store.dispatch;
 export type QuestsProcess = {
   questsData: QuestsCard[];
   allQuestsData: QuestsCard[];
-  questType: string,
-  difficultLevel: string,
-  questsIsLoading: boolean,
-  questsIsNotFound: boolean,
+  questType: string;
+  difficultLevel: string;
+  questsIsLoading: boolean;
+  questsIsNotFound: boolean;
 };
 
 export type QuestProcess = {
   questData: Quest | null;
-  questIsLoading: boolean,
-  questIsNotFound: boolean,
+  questIsLoading: boolean;
+  questIsNotFound: boolean;
 };
 
 export type FiltersProcess = {

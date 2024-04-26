@@ -6,7 +6,6 @@ import { loginAction } from '../../store/api-actions';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { getQuests } from '../../store/action';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginPage(): JSX.Element {
@@ -87,7 +86,7 @@ function LoginPage(): JSX.Element {
                       Пароль
                     </label>
                     <input
-                     ref={passwordRef}
+                      ref={passwordRef}
                       type="password"
                       id="password"
                       name="password"

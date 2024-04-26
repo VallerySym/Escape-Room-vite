@@ -45,8 +45,8 @@ function MainPage(): JSX.Element {
               Выберите тематику
             </h2>
           </div>
-          <div className="page-content__item">      
-              <FilterItem />
+          <div className="page-content__item">
+            <FilterItem />
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
           <div className="cards-grid">

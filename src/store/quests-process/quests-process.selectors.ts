@@ -1,5 +1,4 @@
 import { NameSpace } from '../../const';
-import { QuestsCard } from '../../types/quest-card';
 import { State } from '../../types/state';
 
 export const getDifficultLevel = (state: Pick<State, NameSpace.Quests>): string =>

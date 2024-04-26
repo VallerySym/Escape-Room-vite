@@ -16,7 +16,7 @@ const initialDetailedQuest: DetailedQuest = {
   description: '',
   coverImg: '',
   coverImgWebp: '',
-}
+};
 
 const initialQuestPlace: BookingInfo = {
   id: '',
@@ -86,19 +86,19 @@ export const bookingSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-    .addCase(fetchDetailedQuest.fulfilled, (state, action) => {
-      state.detailedQuest = action.payload;
-    })
-    .addCase(fetchBookingQuestInfo.fulfilled, (state, action) => {
-      state.bookingInfo = action.payload;
-      state.bookingIsLoading = true;
-    })
-    .addCase(fetchBookingQuestInfo.pending, (state) => {
-      state.bookingIsLoading = false;
-    })
-    .addCase(fetchReservedQuests.fulfilled, (state, action) => {
-      state.reservedQuests = action.payload;
-    }); 
+      .addCase(fetchDetailedQuest.fulfilled, (state, action) => {
+        state.detailedQuest = action.payload;
+      })
+      .addCase(fetchBookingQuestInfo.fulfilled, (state, action) => {
+        state.bookingInfo = action.payload;
+        state.bookingIsLoading = true;
+      })
+      .addCase(fetchBookingQuestInfo.pending, (state) => {
+        state.bookingIsLoading = false;
+      })
+      .addCase(fetchReservedQuests.fulfilled, (state, action) => {
+        state.reservedQuests = action.payload;
+      });
   }
 });
 

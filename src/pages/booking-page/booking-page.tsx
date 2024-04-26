@@ -17,7 +17,6 @@ function BookingPage(): JSX.Element {
   const detailedQuest = useAppSelector(getDetailedQuest);
   const isWithChildren = useAppSelector(getIsWithChildrenFormData);
 
-
   useEffect(() => {
     if (id) {
       dispatch(fetchBookingQuestInfo(id));
@@ -28,7 +27,7 @@ function BookingPage(): JSX.Element {
 
   const bookingQuestInfo = useAppSelector(getBookingQuestInfo);
   const selectedQuestPlace = useAppSelector(getSelectedQuestPlace);
-
+ 
   return (
     <div className="wrapper">
       <Helmet>
@@ -36,7 +35,7 @@ function BookingPage(): JSX.Element {
       </Helmet>
       <Header />
       <main className="page-content decorated-page">
-      <div className="decorated-page__decor" aria-hidden="true">
+        <div className="decorated-page__decor" aria-hidden="true">
           <picture>
             <source
               type="image/webp"
@@ -64,7 +63,7 @@ function BookingPage(): JSX.Element {
             <div className="booking-map">
               <div className="map">
                 <div className="map__container">
-                   {/* <Map   /> */}
+                  {/* <Map locations={selectedQuestPlace.location.coords} /> */}
                 </div>
               </div>
               <p className="booking-map__address">

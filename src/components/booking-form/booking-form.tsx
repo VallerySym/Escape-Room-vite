@@ -1,14 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchReservedQuests, postFormData } from '../../store/api-actions';
-import { setFormChildren, setFormPeopleCount, setFormPerson, setFormPhone } from '../../store/booking-process/booking-process.slice';
-import { getQuestFormData } from '../../store/booking-process/booking-process.selectors'
-import { BookingInfo } from '../../types/booking-info';
+import { useForm } from 'react-hook-form';
+import { FormEvent } from 'react';
+
+import { Quest } from '../../types/quest';
 import TodayQuestTime from '../quest-time/today-quest-time';
 import TomorrowQuestTime from '../quest-time/tomorrow-quest-time';
-import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { fetchReservedQuests, postFormData } from '../../store/api-actions';
+import { setFormChildren, setFormPeopleCount, setFormPerson, setFormPhone } from '../../store/booking-process/booking-process.slice';
+import { getQuestFormData } from '../../store/booking-process/booking-process.selectors';
+import { BookingInfo } from '../../types/booking-info';
 import { AppRoute } from '../../const';
-import { Quest } from '../../types/quest';
 
 type BookingFormProps = {
   bookingQuestInfo: BookingInfo[];
@@ -19,31 +22,33 @@ type BookingFormProps = {
 
 type FormValues = {
   name: string;
-  tel: string;
-  person: number;
+  phone: string;
+  peopleCount: number;
 }
-
 
 function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
 
-  const {bookingQuestInfo, selectedQuestPlace, isWithChildren, detailedQuest} = bookingFormProps;
+  const { bookingQuestInfo, selectedQuestPlace, isWithChildren, detailedQuest } = bookingFormProps;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const formData = useAppSelector(getQuestFormData);
 
-  const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<FormValues>({mode: 'onChange'});
+  const { register, formState: { errors, isValid }, reset } = useForm<FormValues>({ mode: 'onChange' });
 
   const postData = {
     postData: formData,
     id: detailedQuest.id
   };
 
-  const onSubmitForm: SubmitHandler<FormValues> = () => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
     dispatch(postFormData(postData));
     dispatch(fetchReservedQuests());
-    reset();
+
     navigate(AppRoute.MyQuests);
+    reset();
   };
 
   const handleSetContactPersonName = (data: string) => {
@@ -67,28 +72,28 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
       className="booking-form"
       action="https://echo.htmlacademy.ru/"
       method="post"
-      onSubmit={(evt) => void handleSubmit(onSubmitForm)(evt)}
+      onSubmit={handleSubmit}
     >
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Выбор даты и времени</legend>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Сегодня</legend>
-          {bookingQuestInfo.length && <TodayQuestTime todayQuestTimeProps={selectedQuestPlace}/>}
+          {bookingQuestInfo.length && <TodayQuestTime todayQuestTimeProps={selectedQuestPlace} />}
         </fieldset>
         <fieldset className="booking-form__date-section">
           <legend className="booking-form__date-title">Завтра</legend>
-          {bookingQuestInfo.length && <TomorrowQuestTime tomorrowQuestTimeProps={selectedQuestPlace}/>}
+          {bookingQuestInfo.length && <TomorrowQuestTime tomorrowQuestTimeProps={selectedQuestPlace} />}
         </fieldset>
       </fieldset>
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Контактная информация</legend>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="name">
-              Ваше имя
+            Ваше имя
           </label>
           <input
             {...register('name', {
-              required: 'Поле обязательно к заполнению',
+              required: 'Обязательное поле',
               pattern: new RegExp('[А-Яа-яЁёA-Za-z]{1,}'),
               minLength: {
                 value: 1,
@@ -104,48 +109,63 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
             placeholder="Имя"
             onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetContactPersonName(evt.target.value)}
           />
-          <div>{errors?.name && <p style={{color: 'red'}}>{errors.name.message}</p>}</div>
+          <div>
+            {errors?.name &&
+              <p style={{ color: 'red', margin: 0 }}>
+                {errors.name.message}
+              </p>}
+          </div>
         </div>
         <div className="custom-input booking-form__input">
-          <label className="custom-input__label" htmlFor="tel">
-              Контактный телефон
+          <label className="custom-input__label" htmlFor="phone">
+            Контактный телефон
           </label>
           <input
-            {...register('tel', {
-              required: 'Поле обязательно к заполнению',
+            {...register('phone', {
+              required: 'Обязательное поле',
               pattern: {
                 value: new RegExp('[0-9]{10,}'),
                 message: 'Неправильный формат номера',
               }
             })}
-            type="tel"
-            id="tel"
+            type="phone"
+            id="phone"
             placeholder="Телефон"
             onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPhone(evt.target.value)}
           />
-          <div>{errors?.tel && <p style={{color: 'red'}}>{errors.tel.message}</p>}</div>
+          <div>
+            {errors?.phone &&
+              <p style={{ color: 'red', margin: 0 }}>
+                {errors.phone.message}
+              </p>}
+          </div>
         </div>
         <div className="custom-input booking-form__input">
-          <label className="custom-input__label" htmlFor="person">
-              Количество участников
+          <label className="custom-input__label" htmlFor="peopleCount">
+            Количество участников
           </label>
-          <input {...register('person', {
-            required: 'Поле обязательно к заполнению',
+          <input {...register('peopleCount', {
+            required: 'Обязательное поле',
             max: {
               value: detailedQuest.peopleMinMax[1],
-              message: 'укажите корректное количество участников'
+              message: 'Укажите корректное количество участников'
             },
             min: {
               value: detailedQuest.peopleMinMax[0],
-              message: 'укажите корректное количество участников'
+              message: 'Укажите корректное количество участников'
             }
           })}
           type="number"
-          id="person"
+          id="peopleCount"
           placeholder="Количество участников"
           onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPeopleCount(Number(evt.target.value))}
           />
-          <div>{errors?.person && <p style={{color: 'red'}}>{errors.person.message}</p>}</div>
+          <div>
+            {errors?.peopleCount &&
+              <p style={{ color: 'red', margin: 0 }}>
+                {errors.peopleCount.message}
+              </p>}
+          </div>
         </div>
         <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
           <input
@@ -161,7 +181,7 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
             </svg>
           </span>
           <span className="custom-checkbox__label">
-              Со&nbsp;мной будут дети
+            Со&nbsp;мной будут дети
           </span>
         </label>
       </fieldset>
@@ -170,7 +190,7 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
         type="submit"
         disabled={!isValid}
       >
-          Забронировать
+        Забронировать
       </button>
       <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--agreement">
         <input
@@ -185,11 +205,11 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
           </svg>
         </span>
         <span className="custom-checkbox__label">
-            Я&nbsp;согласен с
+          Я&nbsp;согласен с
           <a className="link link--active-silver link--underlined" href="#">
-              правилами обработки персональных данных
+            правилами обработки персональных данных
           </a>
-            &nbsp;и пользовательским соглашением
+          &nbsp;и пользовательским соглашением
         </span>
       </label>
     </form>

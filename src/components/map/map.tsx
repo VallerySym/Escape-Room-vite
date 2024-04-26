@@ -12,51 +12,51 @@ type MapProps = {
 }
 
 function Map({ locations, latitude, longitude }: MapProps): JSX.Element {
-    const [activeMarker, setActiveMarker] = useState<string | null>(locations ? locations[0].id : null);
+  const [activeMarker, setActiveMarker] = useState<string | null>(locations ? locations[0].id : null);
 
-    useEffect(() => {
-        if (locations && locations.length > 0) {
-            setActiveMarker(locations[0].id);
-        }
-    }, [locations]);
+  useEffect(() => {
+    if (locations && locations.length > 0) {
+      setActiveMarker(locations[0].id);
+    }
+  }, [locations]);
 
-    const defaultCustomIcon = new Icon({
-        iconUrl: URL_MARKER_DEFAULT,
-        iconSize: [23, 42],
-        iconAnchor: [11.5, 42],
-    });
+  const defaultCustomIcon = new Icon({
+    iconUrl: URL_MARKER_DEFAULT,
+    iconSize: [23, 42],
+    iconAnchor: [11.5, 42],
+  });
 
-    const currentCustomIcon = new Icon({
-        iconUrl: URL_MARKER_CURRENT,
-        iconSize: [23, 42],
-        iconAnchor: [11.5, 42],
-    });
+  const currentCustomIcon = new Icon({
+    iconUrl: URL_MARKER_CURRENT,
+    iconSize: [23, 42],
+    iconAnchor: [11.5, 42],
+  });
 
-    const handleMarkerClick = (id: string) => {
-        setActiveMarker(id);
-    };
+  const handleMarkerClick = (id: string) => {
+    setActiveMarker(id);
+  };
 
-    return (
-        <div className="map">
-            <MapContainer
-                className="map__container"
-                center={[latitude, longitude]}
-                zoom={13}
-            >
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {locations && locations?.length > 0 ? locations?.map((marker) => (
-                    <Marker
-                        key={marker.id}
-                        position={[marker.location.coords[0], marker.location.coords[1]]}
-                        icon={marker.id === activeMarker ? currentCustomIcon : defaultCustomIcon}
-                        eventHandlers={{ click: () => handleMarkerClick(marker.id) }}
-                    />
-                )) : <Marker position={[latitude, longitude]} icon={defaultCustomIcon} />}
-            </MapContainer>
-        </div>
-    );
+  return (
+    <div className="map">
+      <MapContainer
+        className="map__container"
+        center={[latitude, longitude]}
+        zoom={13}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {locations && locations?.length > 0 ? locations?.map((marker) => (
+          <Marker
+            key={marker.id}
+            position={[marker.location.coords[0], marker.location.coords[1]]}
+            icon={marker.id === activeMarker ? currentCustomIcon : defaultCustomIcon}
+            eventHandlers={{ click: () => handleMarkerClick(marker.id) }}
+          />
+        )) : <Marker position={[latitude, longitude]} icon={defaultCustomIcon} />}
+      </MapContainer>
+    </div>
+  );
 }
 export default Map;
