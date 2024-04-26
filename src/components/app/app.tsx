@@ -13,17 +13,18 @@ import QuestPage from '../../pages/quest-page/quest-page';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
 import Spinner from '../spinner/spinner';
 import { AuthorizationStatus } from '../../const';
-import { getQuestsIsLoading } from '../../store/quests-process/quests-process.selectors';
+import { getQuestIsLoading } from '../../store/quest-process/quest-process.selectors';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
-  const isQuestsLoading = useAppSelector(getQuestsIsLoading);
+  const isQuestsLoading = useAppSelector(getQuestIsLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isQuestsLoading) {
     return (
       <Spinner />
     );
   }
+
 
   return (
     <HelmetProvider>
