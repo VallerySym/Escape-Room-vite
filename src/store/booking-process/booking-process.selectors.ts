@@ -12,9 +12,6 @@ export const getDetailedQuest = (state: Pick <State, NameSpace.Booking>): Detail
 export const getBookingQuestInfo = (state: Pick <State, NameSpace.Booking>): BookingInfo[] =>
   state[NameSpace.Booking].bookingInfo;
 
-export const getBookingInfoLoadingStatus = (state: Pick<State, NameSpace.Booking>): boolean =>
-  state[NameSpace.Booking].bookingIsLoading;
-
 export const getSelectedQuestPlaceId = (state: Pick<State, NameSpace.Booking>): string =>
   state[NameSpace.Booking].selectedQuestPlaceId;
 
@@ -29,3 +26,9 @@ export const getQuestFormData = (state: Pick<State, NameSpace.Booking>): QuestFo
 
 export const getReservedQuests = (state: Pick<State, NameSpace.Booking>): ReservedQuest[] =>
   state[NameSpace.Booking].reservedQuests;
+
+export const getBookingQuestIsLoading = (state: Pick<State, NameSpace.Booking>): boolean =>
+  state[NameSpace.Booking].bookingQuestIsLoading;
+
+export const getBookingQuestIsNotFound = (state: Pick<State, NameSpace.Booking>): boolean =>
+  state[NameSpace.Booking].bookingQuestIsNotFound;

@@ -79,10 +79,11 @@ export type BookingProcess = {
   quests: Quest[];
   detailedQuest: DetailedQuest;
   bookingInfo: BookingInfo[];
-  bookingIsLoading: boolean;
   selectedQuestPlaceId: string;
   selectedQuestPlace: BookingInfo;
   questFormData: QuestFormData;
   reservedQuests: ReservedQuest[];
   questType: string;
+  bookingQuestIsLoading: boolean;
+  bookingQuestIsNotFound: boolean;
 };

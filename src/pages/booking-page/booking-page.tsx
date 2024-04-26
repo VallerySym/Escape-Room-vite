@@ -1,33 +1,39 @@
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import BookingForm from '../../components/booking-form/booking-form';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getDetailedQuest,getIsWithChildrenFormData, getBookingQuestInfo, getSelectedQuestPlace} from '../../store/booking-process/booking-process.selectors';
+
 import { fetchBookingQuestInfo } from '../../store/api-actions';
-import { setQuestPlaceId,setFormPlaceId } from '../../store/booking-process/booking-process.slice';
+import { setQuestPlaceId, setFormPlaceId } from '../../store/booking-process/booking-process.slice';
+import {
+getDetailedQuest, getIsWithChildrenFormData,
+getBookingQuestInfo, getSelectedQuestPlace
+} from '../../store/booking-process/booking-process.selectors';
 
 function BookingPage(): JSX.Element {
-  const {id} = useParams();
+  const params = useParams();
+  const questId = params.id;
 
   const dispatch = useAppDispatch();
   const detailedQuest = useAppSelector(getDetailedQuest);
   const isWithChildren = useAppSelector(getIsWithChildrenFormData);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchBookingQuestInfo(id));
-      dispatch(setQuestPlaceId(id));
-      dispatch(setFormPlaceId(id));
+    if (questId) {
+      dispatch(fetchBookingQuestInfo(questId));
+      dispatch(setQuestPlaceId(questId));
+      dispatch(setFormPlaceId(questId));
     }
-  }, [id, dispatch, detailedQuest.id]);
+  }, [questId, dispatch, detailedQuest.id]);
 
   const bookingQuestInfo = useAppSelector(getBookingQuestInfo);
   const selectedQuestPlace = useAppSelector(getSelectedQuestPlace);
- 
+
   return (
     <div className="wrapper">
       <Helmet>
@@ -53,7 +59,7 @@ function BookingPage(): JSX.Element {
         <div className="container container--size-s">
           <div className="page-content__title-wrapper">
             <h1 className="subtitle subtitle--size-l page-content__subtitle">
-          Бронирование квеста
+              Бронирование квеста
             </h1>
             <p className="title title--size-m title--uppercase page-content__title">
               {detailedQuest.title}
@@ -67,7 +73,7 @@ function BookingPage(): JSX.Element {
                 </div>
               </div>
               <p className="booking-map__address">
-                {selectedQuestPlace?.location.address}
+                {selectedQuestPlace.location.address}
               </p>
             </div>
           </div>

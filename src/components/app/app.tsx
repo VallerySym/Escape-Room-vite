@@ -11,9 +11,19 @@ import ContactsPage from '../../pages/contacts-page/contacts-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import QuestPage from '../../pages/quest-page/quest-page';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
+import Spinner from '../spinner/spinner';
+import { AuthorizationStatus } from '../../const';
+import { getQuestsIsLoading } from '../../store/quests-process/quests-process.selectors';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
+  const isQuestsLoading = useAppSelector(getQuestsIsLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isQuestsLoading) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <HelmetProvider>

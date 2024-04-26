@@ -44,12 +44,13 @@ const initialState: BookingProcess = {
   quests: [],
   detailedQuest: initialDetailedQuest,
   bookingInfo: [],
-  bookingIsLoading: false,
   selectedQuestPlaceId: '',
   selectedQuestPlace: initialQuestPlace,
   questFormData: initialFormData,
   reservedQuests: [],
-  questType: QUEST_TYPES['all-quests']
+  questType: QUEST_TYPES['all-quests'],
+  bookingQuestIsLoading: false,
+  bookingQuestIsNotFound: false,
 };
 
 export const bookingSlice = createSlice({
@@ -89,12 +90,17 @@ export const bookingSlice = createSlice({
       .addCase(fetchDetailedQuest.fulfilled, (state, action) => {
         state.detailedQuest = action.payload;
       })
+      .addCase(fetchBookingQuestInfo.pending, (state) => {
+        state.bookingQuestIsLoading = false;
+        state.bookingQuestIsNotFound = true;
+      })
       .addCase(fetchBookingQuestInfo.fulfilled, (state, action) => {
         state.bookingInfo = action.payload;
-        state.bookingIsLoading = true;
+        state.bookingQuestIsLoading = true;
       })
-      .addCase(fetchBookingQuestInfo.pending, (state) => {
-        state.bookingIsLoading = false;
+      .addCase(fetchBookingQuestInfo.rejected, (state) => {
+        state.bookingQuestIsLoading = false;
+        state.bookingQuestIsNotFound = true;
       })
       .addCase(fetchReservedQuests.fulfilled, (state, action) => {
         state.reservedQuests = action.payload;
