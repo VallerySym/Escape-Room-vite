@@ -37,7 +37,8 @@ export enum NameSpace {
   Filters = 'FILTERS',
   Auth = 'AUTH',
   User='USER',
-  Booking='BOOKING'
+  Booking='BOOKING',
+  Error = 'ERROR'
 }
 
 export const DEFAULT_OFFICE_LOCATION: Location = {

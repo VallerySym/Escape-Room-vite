@@ -87,3 +87,7 @@ export type BookingProcess = {
   bookingQuestIsLoading: boolean;
   bookingQuestIsNotFound: boolean;
 };
+
+export type ErrorMessageProcess = {
+  errorMessage: string | null;
+};
