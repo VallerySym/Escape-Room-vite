@@ -1,25 +1,20 @@
 import { Location } from './types/location';
 
 export enum AppRoute {
-    Main = '/',
-    Login = '/login',
-    MyQuests = '/my-quests',
-    Quest = '/quest/:id',
-    Booking ='/quest/:id/booking',
-    Contacts = '/contacts',
+  Main = '/',
+  Login = '/login',
+  MyQuests = '/my-quests',
+  Quest = '/quest/:id',
+  Booking = '/quest/:id/booking',
+  Contacts = '/contacts',
+  NotFound = '*',
 }
 
 export enum AuthorizationStatus {
-    Auth = 'AUTH',
-    NoAuth = 'NO_AUTH',
-    Unknown = 'UNKNOWN',
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
 }
-
-export const DIFFICULTY_LEVELS = {
-  'easy': 'Легкий',
-  'medium': 'Средний',
-  'hard': 'Сложный'
-};
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
@@ -27,7 +22,7 @@ export enum APIRoute {
   Quests = '/quest',
   Login = '/login',
   Logout = '/logout',
-  Booking='/booking',
+  Booking = '/booking',
   MyQuests = '/reservation',
 }
 
@@ -36,15 +31,15 @@ export enum NameSpace {
   Quest = 'QUEST',
   Filters = 'FILTERS',
   Auth = 'AUTH',
-  User='USER',
-  Booking='BOOKING',
+  User = 'USER',
+  Booking = 'BOOKING',
   Error = 'ERROR'
 }
 
 export const DEFAULT_OFFICE_LOCATION: Location = {
   address: '',
-  coords:[59.968253, 30.317505 ]
-}
+  coords: [59.968253, 30.317505]
+};
 
 export const URL_MARKER_DEFAULT = '/img/svg/pin-default.svg';
 
@@ -59,6 +54,13 @@ export const QUEST_TYPES_FILTERS = [
   { id: 'sci-fi', icon: 'icon-sci-fi', text: 'Sci-fi', width: 28, height: 30 },
 ];
 
+export const QUEST_LEVELS_FILTERS = [
+  { id: 'any', text: 'Любой' },
+  { id: 'easy', text: 'Лёгкий' },
+  { id: 'medium', text: 'Средний' },
+  { id: 'hard', text: 'Сложный' },
+];
+
 export const QUEST_TYPES = {
   'all-quests': 'Все квесты',
   'adventures': 'Приключения',
@@ -68,12 +70,12 @@ export const QUEST_TYPES = {
   'sci-fi': 'Sci-fi'
 };
 
-export const QUEST_LEVELS_FILTERS = [
-  { id: 'any', text: 'Любой' },
-  { id: 'easy', text: 'Лёгкий' },
-  { id: 'medium', text: 'Средний' },
-  { id: 'hard', text: 'Сложный' },
-];
+export const DIFFICULTY_LEVELS = {
+  'any': 'Любой',
+  'easy': 'Легкий',
+  'medium': 'Средний',
+  'hard': 'Сложный'
+};
 
 export enum QuestDate {
   today = 'Сегодня',

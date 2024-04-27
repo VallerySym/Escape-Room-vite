@@ -57,7 +57,7 @@ function Header(): JSX.Element {
           </nav>
           <div className="header__side-nav">
             <Link
-              className="btn header__side-item header__login-btn" 
+              className="btn header__side-item header__login-btn"
               to={AppRoute.Login}
             >
               Войти

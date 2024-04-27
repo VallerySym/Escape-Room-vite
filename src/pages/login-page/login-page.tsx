@@ -3,17 +3,17 @@ import { useRef, FormEvent, useEffect, useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
-import { AuthInfo } from '../../types/user-data';
+import { AuthInfo } from '../../types/auth-info';
 
 const validateEmail = (email: string): boolean =>
   /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
 
 const validatePassword = (password: string): boolean =>
-  /^[A-za-z0-9_]+[A-za-z0-9_]{2,15}$/.test(password);
+  /^(?=.*[a-zA-Z])(?=.*\d)(?=.{3,15}$)/.test(password);
 
 const validate = (formData: AuthInfo): boolean => {
   if (!validateEmail(formData.email)) {
@@ -49,7 +49,7 @@ function LoginPage(): JSX.Element {
 
   useEffect(() => {
     if (authStatus === AuthorizationStatus.Auth) {
-      navigate(AppRoute.Main);
+      navigate(-2);
     }
   }, [authStatus, navigate]);
 

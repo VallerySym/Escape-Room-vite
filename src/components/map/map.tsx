@@ -8,13 +8,13 @@ type MapProps = {
   longitude: number;
 }
 
-function Map({  latitude, longitude }: MapProps): JSX.Element {
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [23, 42],
+  iconAnchor: [11.5, 42],
+});
 
-  const currentCustomIcon = new Icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [23, 42],
-    iconAnchor: [11.5, 42],
-  });
+function Map({ latitude, longitude }: MapProps): JSX.Element {
 
   return (
     <div className="map">

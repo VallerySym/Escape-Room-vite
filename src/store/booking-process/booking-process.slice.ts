@@ -57,7 +57,7 @@ export const bookingSlice = createSlice({
   name: NameSpace.Booking,
   initialState,
   reducers: {
-    setQuestPlaceId: (state, action: PayloadAction<string>) => {
+    setBookingQuestPlaceId: (state, action: PayloadAction<string>) => {
       state.selectedQuestPlaceId = action.payload;
     },
     setSelectedQuestPlace: (state, action: PayloadAction<BookingInfo>) => {
@@ -108,6 +108,6 @@ export const bookingSlice = createSlice({
   }
 });
 
-export const {setQuestPlaceId, setSelectedQuestPlace, setFormChildren,
+export const {setBookingQuestPlaceId, setSelectedQuestPlace, setFormChildren,
   setFormDate, setFormPeopleCount, setFormPerson, setFormPhone, setFormPlaceId, setFormTime} = bookingSlice.actions;
 

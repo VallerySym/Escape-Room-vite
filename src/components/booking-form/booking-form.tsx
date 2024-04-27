@@ -27,12 +27,11 @@ type FormValues = {
 }
 
 function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
-
-  const { bookingQuestInfo, selectedQuestPlace, isWithChildren, detailedQuest } = bookingFormProps;
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const formData = useAppSelector(getQuestFormData);
+
+  const { bookingQuestInfo, selectedQuestPlace, isWithChildren, detailedQuest } = bookingFormProps;
 
   const { register, formState: { errors, isValid }, reset } = useForm<FormValues>({ mode: 'onChange' });
 

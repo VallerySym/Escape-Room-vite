@@ -3,11 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Spinner from '../../components/spinner/spinner';
-
 import { fetchDetailedQuest } from '../../store/api-actions';
 import { getQuestIsLoading } from '../../store/quest-process/quest-process.selectors';
 import { getDetailedQuest } from '../../store/booking-process/booking-process.selectors';

@@ -8,7 +8,7 @@ type TodayQuestTimeProps = {
 
 function TodayQuestTime({todayQuestTimeProps}: TodayQuestTimeProps): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const todayHours = todayQuestTimeProps.slots.today;
+  const todayHours = todayQuestTimeProps.slots?.today;
 
   const handleSetFormDateTime = (data: string) => {
     dispatch(setFormTime(data));
@@ -17,7 +17,7 @@ function TodayQuestTime({todayQuestTimeProps}: TodayQuestTimeProps): React.JSX.E
 
   return (
     <div className="booking-form__date-inner-wrapper">
-      {todayHours.map(({time, isAvailable}) => (
+      {todayHours?.map(({time, isAvailable}) => (
         <label className="custom-radio booking-form__date" key={time}>
           <input
             type="radio"
