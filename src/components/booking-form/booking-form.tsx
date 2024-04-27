@@ -154,10 +154,10 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
               message: `Максимальное количество участников ${detailedQuest.peopleMinMax[1]}`,
             },
           })}
-            type="number"
-            id="peopleCount"
-            placeholder="Количество участников"
-            onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPeopleCount(Number(evt.target.value))}
+          type="number"
+          id="peopleCount"
+          placeholder="Количество участников"
+          onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPeopleCount(Number(evt.target.value))}
           />
           <div>
             {errors?.peopleCount &&
