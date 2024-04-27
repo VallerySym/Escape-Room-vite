@@ -79,7 +79,7 @@ export type BookingProcess = {
   quests: Quest[];
   detailedQuest: DetailedQuest;
   bookingInfo: BookingInfo[];
-  selectedQuestPlaceId: string;
+  selectedQuestPlaceId: string ;
   selectedQuestPlace: BookingInfo;
   questFormData: QuestFormData;
   reservedQuests: ReservedQuest[];

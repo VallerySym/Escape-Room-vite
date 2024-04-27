@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
 import { Link } from 'react-router-dom';
+import Logo from '../../components/logo/logo';
 
 const container = {
   padding: 50,

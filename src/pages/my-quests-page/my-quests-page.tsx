@@ -3,18 +3,21 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchReservedQuests,deleteReservedQuest } from '../../store/api-actions';
+import { fetchReservedQuests, deleteReservedQuest } from '../../store/api-actions';
 import { getReservedQuests } from '../../store/booking-process/booking-process.selectors';
 import { Link } from 'react-router-dom';
 import { QuestDate } from '../../const';
+import { getQuestIsLoading } from '../../store/quest-process/quest-process.selectors';
+import Spinner from '../../components/spinner/spinner';
 
 function MyQuestsPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const reservedQuests = useAppSelector(getReservedQuests);
+  const questIsLoading = useAppSelector(getQuestIsLoading);
 
   useEffect(() => {
     dispatch(fetchReservedQuests());
   }, [dispatch]);
-  const reservedQuests = useAppSelector(getReservedQuests);
 
   return (
     <div className="wrapper">
@@ -23,6 +26,7 @@ function MyQuestsPage(): JSX.Element {
       </Helmet>
       <Header />
       <main className="page-content decorated-page">
+        {questIsLoading && <Spinner />}
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
             <source
@@ -92,7 +96,7 @@ function MyQuestsPage(): JSX.Element {
                       dispatch(deleteReservedQuest(reservedQuest.id));
                     }}
                   >
-                  Отменить
+                    Отменить
                   </button>
                 </div>
               </div>

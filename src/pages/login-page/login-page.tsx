@@ -1,12 +1,30 @@
 import { Helmet } from 'react-helmet-async';
-import { useRef, FormEvent, useEffect } from 'react';
+import { useRef, FormEvent, useEffect, useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { getAuthStatus } from '../../store/user-process/user-process.selectors';
+import { AuthInfo } from '../../types/auth-info';
+
+const validateEmail = (email: string): boolean =>
+  /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
+
+const validatePassword = (password: string): boolean =>
+  /^(?=.*[a-zA-Z])(?=.*\d)(?=.{3,15}$)/.test(password);
+
+const validate = (formData: AuthInfo): boolean => {
+  if (!validateEmail(formData.email)) {
+    return false;
+  }
+  if (!validatePassword(formData.password)) {
+    return false;
+  }
+
+  return true;
+};
 
 function LoginPage(): JSX.Element {
 
@@ -31,9 +49,25 @@ function LoginPage(): JSX.Element {
 
   useEffect(() => {
     if (authStatus === AuthorizationStatus.Auth) {
-      navigate(AppRoute.Main);
+      navigate(-2);
     }
   }, [authStatus, navigate]);
+
+  const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
+  const [formData, setFormData] = useState<AuthInfo>({
+    email: '',
+    password: '',
+  });
+
+  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
+    if (validate({ ...formData, [name]: value })) {
+      setIsSubmitButtonOk(true);
+    } else {
+      setIsSubmitButtonOk(false);
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -73,6 +107,8 @@ function LoginPage(): JSX.Element {
                       E&nbsp;–&nbsp;mail
                     </label>
                     <input
+                      onChange={handleTextChange}
+                      value={formData.email}
                       ref={loginRef}
                       type="email"
                       id="email"
@@ -86,6 +122,8 @@ function LoginPage(): JSX.Element {
                       Пароль
                     </label>
                     <input
+                      onChange={handleTextChange}
+                      value={formData.password}
                       ref={passwordRef}
                       type="password"
                       id="password"
@@ -98,6 +136,7 @@ function LoginPage(): JSX.Element {
                 <button
                   className="btn btn--accent btn--general login-form__submit"
                   type="submit"
+                  disabled={!isSubmitButtonOk}
                 >
                   Войти
                 </button>

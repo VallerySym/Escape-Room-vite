@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse} from 'axios';
-import { toast } from 'react-toastify';
 import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
+import { errorHandle } from './error-handle';
 
 const BACKEND_URL = 'https://grading.design.htmlacademy.pro/v1/escape-room/';
 const REQUEST_TIMEOUT = 5000;
@@ -34,7 +34,7 @@ export const createAPI = (): AxiosInstance => {
       }
 
       return config;
-    }
+    },
   );
 
   api.interceptors.response.use(
@@ -42,7 +42,8 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<ErrorMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const errorMessage = (error.response.data);
-        toast.warn(errorMessage.message);
+
+        errorHandle(errorMessage.message);
       }
 
       throw error;

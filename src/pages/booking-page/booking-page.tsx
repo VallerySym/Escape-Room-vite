@@ -2,17 +2,15 @@ import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import Map from '../../components/map/map';
 import BookingForm from '../../components/booking-form/booking-form';
-
+import MapBooking from '../../components/map-booking/map-booking';
 import { fetchBookingQuestInfo } from '../../store/api-actions';
-import { setQuestPlaceId, setFormPlaceId } from '../../store/booking-process/booking-process.slice';
+import { setBookingQuestPlaceId, setFormPlaceId } from '../../store/booking-process/booking-process.slice';
 import {
-getDetailedQuest, getIsWithChildrenFormData,
-getBookingQuestInfo, getSelectedQuestPlace
+  getDetailedQuest, getIsWithChildrenFormData,
+  getBookingQuestInfo, getSelectedQuestPlace
 } from '../../store/booking-process/booking-process.selectors';
 
 function BookingPage(): JSX.Element {
@@ -26,7 +24,7 @@ function BookingPage(): JSX.Element {
   useEffect(() => {
     if (questId) {
       dispatch(fetchBookingQuestInfo(questId));
-      dispatch(setQuestPlaceId(questId));
+      dispatch(setBookingQuestPlaceId(questId));
       dispatch(setFormPlaceId(questId));
     }
   }, [questId, dispatch, detailedQuest.id]);
@@ -69,11 +67,15 @@ function BookingPage(): JSX.Element {
             <div className="booking-map">
               <div className="map">
                 <div className="map__container">
-                  {/* <Map locations={selectedQuestPlace.location.coords} /> */}
+                  <MapBooking
+                    questLocations={bookingQuestInfo}
+                    latitude={selectedQuestPlace.location.coords[0]}
+                    longitude={selectedQuestPlace.location.coords[1]}
+                  />
                 </div>
               </div>
               <p className="booking-map__address">
-                {selectedQuestPlace.location.address}
+              Вы&nbsp;выбрали:  {selectedQuestPlace.location.address}
               </p>
             </div>
           </div>

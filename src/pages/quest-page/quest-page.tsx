@@ -1,17 +1,15 @@
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Spinner from '../../components/spinner/spinner';
-
 import { fetchDetailedQuest } from '../../store/api-actions';
-import { getQuestIsLoading } from '../../store/quest-process/quest-process.selectors';
+import { getQuestIsLoading, getQuestIsNotFound } from '../../store/quest-process/quest-process.selectors';
 import { getDetailedQuest } from '../../store/booking-process/booking-process.selectors';
-import { QUEST_TYPES } from '../../const';
+import { AppRoute, QUEST_TYPES } from '../../const';
 
 function QuestPage(): JSX.Element {
   const params = useParams();
@@ -26,11 +24,8 @@ function QuestPage(): JSX.Element {
   }, [cardId, dispatch]);
 
   const currentQuest = useAppSelector(getDetailedQuest);
-  const isLoading = useAppSelector(getQuestIsLoading);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  const questIsLoading = useAppSelector(getQuestIsLoading);
+  const questIsNotFound = useAppSelector(getQuestIsNotFound);
 
   return (
     <div className="wrapper">
@@ -39,6 +34,8 @@ function QuestPage(): JSX.Element {
       </Helmet>
       <Header />
       <main className="decorated-page quest-page">
+        {questIsLoading && <Spinner />}
+        {questIsNotFound && <Navigate to={AppRoute.NotFound} />}
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
             <source type="image/webp" srcSet={currentQuest?.coverImgWebp} />

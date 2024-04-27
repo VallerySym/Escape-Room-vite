@@ -4,10 +4,12 @@ import { saveToken, dropToken } from '../services/token';
 import { AppDispatch, DetailedQuest, PostData, ReservedQuest, State } from '../types/state';
 import { Quest } from '../types/quest';
 import { QuestsCard } from '../types/quest-card';
-import { UserData, AuthInfo } from '../types/user-data';
-import { APIRoute } from '../const';
+import { UserData } from '../types/user-data';
+import { AuthInfo } from '../types/auth-info';
+import { APIRoute, AppRoute } from '../const';
 import { BookingInfo } from '../types/booking-info';
 import { setFormPlaceId, setSelectedQuestPlace } from './booking-process/booking-process.slice';
+import { redirectToRoute } from './action';
 
 export const fetchQuests = createAsyncThunk<QuestsCard[], undefined, {
   dispatch: AppDispatch;
@@ -39,11 +41,12 @@ export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'auth/checkAuth',
+  'user/checkAuth',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<UserData>(APIRoute.Login);
+
     return data;
-  }
+  },
 );
 
 export const loginAction = createAsyncThunk<UserData, AuthInfo, {
@@ -52,15 +55,18 @@ export const loginAction = createAsyncThunk<UserData, AuthInfo, {
   extra: AxiosInstance;
 }>(
   'auth/login',
-  async ({ email, password }, { extra: api }) => {
-    try{
+  async ({ email, password }, { dispatch, extra: api }) => {
+    try {
       const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
-      saveToken(data.token);
+      const { token } = data;
+
+      saveToken(token);
+      dispatch(redirectToRoute(AppRoute.Main));
+
       return data;
-    } catch(error){
+    } catch (error) {
       throw new Error();
     }
-    
   }
 );
 
@@ -82,11 +88,12 @@ export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], string, {
   extra: AxiosInstance;
 }>(
   'quests/fetchBookingQuestInfo',
-  async(id, {dispatch, extra: api }) => {
-    const {data} = await api.get<BookingInfo[]>(`${APIRoute.Quests}/${id}/booking`);
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<BookingInfo[]>(`${APIRoute.Quests}/${id}/booking`);
     dispatch(fetchQuests());
     dispatch(setSelectedQuestPlace(data[0]));
     dispatch(setFormPlaceId(data[0].id));
+
     return data;
   });
 
@@ -98,6 +105,7 @@ export const fetchDetailedQuest = createAsyncThunk<DetailedQuest, string, {
   'quests/fetchDetailedQuest',
   async (id, { extra: api }) => {
     const { data } = await api.get<DetailedQuest>(`${APIRoute.Quests}/${id}`);
+
     return data;
   }
 );
@@ -110,6 +118,7 @@ export const postFormData = createAsyncThunk<PostData, PostData, {
   'postFormData',
   async ({ postData, id }, { extra: api }) => {
     const { data } = await api.post<PostData>(`${APIRoute.Quests}/${id}/booking`, postData);
+
     return data;
   }
 );
@@ -120,8 +129,9 @@ export const fetchReservedQuests = createAsyncThunk<ReservedQuest[], undefined, 
   extra: AxiosInstance;
 }>(
   'fetchReservedQuests',
-  async(_arg, {extra: api}) => {
-    const {data} = await api.get<ReservedQuest[]>(APIRoute.MyQuests);
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<ReservedQuest[]>(APIRoute.MyQuests);
+
     return data;
   }
 );
@@ -132,7 +142,7 @@ export const deleteReservedQuest = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>(
   'deleteReservedQuest',
-  async(id, {dispatch, extra: api}) => {
+  async (id, { dispatch, extra: api }) => {
     await api.delete<void>(`${APIRoute.MyQuests}/${id}`);
     dispatch(fetchReservedQuests());
   }

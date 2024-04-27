@@ -1,8 +1,8 @@
-import { Slot } from './slot';
+import { Slot } from './slots';
 import { Location } from './location';
 
 export type BookingInfo = {
-    id: string;
+    id: string | undefined;
     location: Location;
     slots: Slot;
     }

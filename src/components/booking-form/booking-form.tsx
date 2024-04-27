@@ -27,12 +27,11 @@ type FormValues = {
 }
 
 function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
-
-  const { bookingQuestInfo, selectedQuestPlace, isWithChildren, detailedQuest } = bookingFormProps;
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const formData = useAppSelector(getQuestFormData);
+
+  const { bookingQuestInfo, selectedQuestPlace, isWithChildren, detailedQuest } = bookingFormProps;
 
   const { register, formState: { errors, isValid }, reset } = useForm<FormValues>({ mode: 'onChange' });
 
@@ -124,8 +123,8 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
             {...register('phone', {
               required: 'Обязательное поле',
               pattern: {
-                value: new RegExp('[0-9]{10,}'),
-                message: 'Неправильный формат номера',
+                value: /^((\+7)+([0-9]){10})$/,
+                message: 'Пожалуйста, введите номер в формате +7(999)999-99-99',
               }
             })}
             type="phone"
@@ -146,14 +145,14 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
           </label>
           <input {...register('peopleCount', {
             required: 'Обязательное поле',
-            max: {
-              value: detailedQuest.peopleMinMax[1],
-              message: 'Укажите корректное количество участников'
-            },
             min: {
               value: detailedQuest.peopleMinMax[0],
-              message: 'Укажите корректное количество участников'
-            }
+              message: `Минимальное количество участников ${detailedQuest.peopleMinMax[0]}`,
+            },
+            max: {
+              value: detailedQuest.peopleMinMax[1],
+              message: `Максимальное количество участников ${detailedQuest.peopleMinMax[1]}`,
+            },
           })}
           type="number"
           id="peopleCount"
