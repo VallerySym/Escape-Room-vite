@@ -123,8 +123,8 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
             {...register('phone', {
               required: 'Обязательное поле',
               pattern: {
-                value: new RegExp('[0-9]{10,}'),
-                message: 'Неправильный формат номера',
+                value: /^((\+7)+([0-9]){10})$/,
+                message: 'Пожалуйста, введите номер в формате +7(999)999-99-99',
               }
             })}
             type="phone"
@@ -145,19 +145,19 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
           </label>
           <input {...register('peopleCount', {
             required: 'Обязательное поле',
-            max: {
-              value: detailedQuest.peopleMinMax[1],
-              message: 'Укажите корректное количество участников'
-            },
             min: {
               value: detailedQuest.peopleMinMax[0],
-              message: 'Укажите корректное количество участников'
-            }
+              message: `Минимальное количество участников ${detailedQuest.peopleMinMax[0]}`,
+            },
+            max: {
+              value: detailedQuest.peopleMinMax[1],
+              message: `Максимальное количество участников ${detailedQuest.peopleMinMax[1]}`,
+            },
           })}
-          type="number"
-          id="peopleCount"
-          placeholder="Количество участников"
-          onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPeopleCount(Number(evt.target.value))}
+            type="number"
+            id="peopleCount"
+            placeholder="Количество участников"
+            onInput={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPeopleCount(Number(evt.target.value))}
           />
           <div>
             {errors?.peopleCount &&
